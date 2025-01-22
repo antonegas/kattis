@@ -59,8 +59,11 @@ def get_numbered_placeholder(placeholder: str, number: int) -> str:
 
 def dfs(start: str, graph: dict[str, list[str]], mappings: dict[str, str]) -> bool:
     """
-    Return True if the spanning tree doesn't have any conflicts
-    False otherwise
+    Finds and adds [mappings] to the spaning tree using depth first search starting in 
+    the placeholder [start] in the [graph].
+    
+    Return True if the spanning tree doesn't have any conflicts,
+    False otherwise.
     """
     starting_word = mappings[start]
     stack: list[str] = list()
@@ -72,9 +75,11 @@ def dfs(start: str, graph: dict[str, list[str]], mappings: dict[str, str]) -> bo
         if placeholder not in visited:
             visited.add(placeholder)
             for connected_placeholder in graph[placeholder]:
+                # There is a conflict if there already is a mapping to different word
                 connected_word = mappings[connected_placeholder]
                 if connected_word != "" and connected_word != starting_word:
                     return False
+                
                 if connected_placeholder not in visited:
                     mappings[connected_placeholder] = starting_word
                     stack.append(connected_placeholder)
@@ -82,7 +87,7 @@ def dfs(start: str, graph: dict[str, list[str]], mappings: dict[str, str]) -> bo
     return True
 
 def solve(line1: list[str], line2: list[str]) -> list[str]:
-    # If the patterns are different length and can't have a matching phrase.
+    # If the patterns are different length, they can't have a matching phrase.
     if len(line1) != len(line2): 
         return ["-"]
 
@@ -116,6 +121,8 @@ def solve(line1: list[str], line2: list[str]) -> list[str]:
             partial_mappings[placeholder2] = item1
         elif item1 != item2: # Case 3 failed
             return ["-"]
+        
+    # 
 
     # Idea:
     # - DFS is used to find spanning subtrees of the graph.
