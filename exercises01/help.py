@@ -61,7 +61,7 @@ def dfs(start: str, graph: dict[str, list[str]], mappings: dict[str, str]) -> bo
     """
     Finds and adds [mappings] to the spaning tree using depth first search starting in 
     the placeholder [start] in the [graph].
-    
+
     Return True if the spanning tree doesn't have any conflicts,
     False otherwise.
     """
@@ -163,4 +163,3 @@ if __name__ == "__main__":
         result += " ".join(solve(line1, line2)) + "\n"
 
     open(1, "w").write(result)
-            
