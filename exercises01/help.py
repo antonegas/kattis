@@ -36,6 +36,7 @@ a a a
 a a
 a
 b
+
 out:
 how now brown cow
 -
@@ -47,6 +48,7 @@ any any c
 -
 -
 -
+
 """
 
 from collections import defaultdict
