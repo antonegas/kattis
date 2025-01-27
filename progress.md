@@ -3,7 +3,6 @@
 ## Lab 1
 - [x] Interval Cover
 - [ ] Knapsack
-- [ ] Knapsack
 - [ ] Longest Increasing Subsequence
 - [ ] Union-Find
 - [ ] Fenwick Tree
