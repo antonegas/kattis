@@ -1,14 +1,8 @@
 """
 author: Anton Nilsson
-time complexity: O(XXX)
-space complexity: -
-where:
-- n is the XXX
-why:
-- O(XXX) from XXX
-testcase XXX:
+testcase 1:
 in:
-5
+6
 4
 20 20 20 20
 6
@@ -19,6 +13,8 @@ in:
 1 1
 3
 1 1 2
+3
+2 2 2
 
 out:
 UDUD
@@ -26,57 +22,52 @@ UUDUDD
 IMPOSSIBLE
 UD
 UUD
+IMPOSSIBLE
 
 """
 
 def dynamic_programming(distances: list[int]) -> list[list[int]]:
-    max_possible = sum(distances) + 1
-    max_heights = [[float("inf") for _ in range(max_possible)] for _ in range(len(distances))]
-    directions = [[0 for _ in range(max_possible)] for _ in range(len(distances))]
+    MAX_POSSIBLE = sum(distances) + 1
+    highest = [[float("inf")] * MAX_POSSIBLE for _ in distances]
+    directions = [[0] * MAX_POSSIBLE for _ in distances]
 
-    max_heights[0][distances[0]] = distances[0]
-    directions[0][distances[0]] = 1 
+    highest[0][distances[0]] = distances[0]
+    directions[0][distances[0]] = 1
 
-    for d, distance in enumerate(distances[1:]):
-        for height in range(max_possible):
-            max_height = max_heights[d][height]
-            
+    for d, distance in enumerate(distances[1:], 1):
+        for height, max_height in enumerate(highest[d - 1]):
             if max_height == float("inf"):
                 continue
 
-            lower_height = height - distance
-            higher_height = height + distance
+            lower = height - distance
+            higher = height + distance
 
-            if lower_height >= 0 and max_heights[d + 1][lower_height] > max_height:
-                max_heights[d + 1][lower_height] = max_height
-                directions[d + 1][lower_height] = -1
-            
-            if max_heights[d + 1][higher_height] > max(max_height, higher_height):
-                max_heights[d + 1][higher_height] = max(max_height, higher_height)
-                directions[d + 1][higher_height] = 1
+            if lower >= 0 and highest[d][lower] > max_height:
+                highest[d][lower] = max_height
+                directions[d][lower] = -1
+
+            if highest[d][higher] > max(higher, max_height):
+                highest[d][higher] = max(higher, max_height)
+                directions[d][higher] = 1
 
     return directions
-    
 
 def get_path(distances: list[int], directions: list[list[int]]) -> list[str]:
-    if directions[-1][0] == float("inf"):
+    if directions[-1][0] == 0:
         return ["IMPOSSIBLE"]
     
-    result = list()
-    current_height = 0
+    height = 0
+    result = ["X" for _ in distances]
 
-    for i in reversed(range(len(distances))):
-        current_distance = distances[i]
-        direction = directions[i][current_height]
-        if direction == 1:
-            current_height -= current_distance
-            result.append("U")
-        else:
-            current_height += current_distance
-            result.append("D")
+    for d, distance in reversed(list(enumerate(distances))):
+        direction = directions[d][height]
+        height -= distance * direction
+        if direction == -1:
+            result[d] = "D"
+        elif direction == 1:
+            result[d] = "U"
 
-    return list(reversed(result))
-
+    return result
 
 def solve(distances: list[int]) -> list[str]:
     if sum(distances) % 2:

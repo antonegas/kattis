@@ -47,7 +47,7 @@
 ## Exercise 1
 - [x] Help!
 - [ ] Ljutnja
-- [ ] Spiderman's Workout
+- [x] Spiderman's Workout
 - [ ] Aspen Avenue
 
 ## Exercise 2
