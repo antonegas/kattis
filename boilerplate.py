@@ -1,6 +1,5 @@
 """
 author: Anton Nilsson
-description: XXX
 testcase XXX:
 in:
 XXX
@@ -14,11 +13,10 @@ def algorithm():
 
     algorithm: XXX
     time complexity: O(XXX)
+    space complexity: O(XXX)
     where:
     - n is the XXX
     why:
-    - XXX
-    assumptions:
     - XXX
 
     parameters:
