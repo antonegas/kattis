@@ -1,6 +1,5 @@
 """
 author: Anton Nilsson
-description: XXX
 testcase 1:
 in:
 4
