@@ -67,20 +67,20 @@ def cover(interval: tuple[float, float], intervals: list[tuple[float, float]]) -
     A proof is left as an exercise for the reader (TDDD20, lecture 2).
     time complexity: O(n*logn)
     where:
-    - n is the number of intervals
+    - n is the number of intervals.
     why:
-    - O(n*logn) from sorting the intervals (python uses powersort/mergesort)
-    - O(n) from looping over the sorted intervals
+    - O(n*logn) from sorting the intervals (python uses powersort/mergesort).
+    - O(n) from looping over the sorted intervals.
     - O(1) for popping the last element of a list
-    - O(1) for appending an element to a list
-    - O(n*logn+n*(1+1)) = O(nlogn)
+    - O(1) for appending an element to a list.
+    - O(n*logn+n*(1+1)) = O(nlogn).
 
     parameters:
     - interval: the interval for which to find a minimal amount of intervals which covers it.
     - intervals: the intervals from which the algorithm choses when searching for a solution.
     returns:
     - If a solution exists: a list of indices which creates a minimum covering of the interval.
-    - If a solution doesn't exist: an empty list
+    - If a solution doesn't exist: an empty list.
     """
     # Intervals are sorted in order to only have to loop through the intervals once.
     # The indices of each interval in the original list is appended to be able to return
