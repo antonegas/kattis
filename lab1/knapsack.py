@@ -43,8 +43,7 @@ def knapsack(max_capacity: int, items: list[tuple[int, int]]) -> list[int]:
 
     parameters:
     - capacity: the limited capacity of the knapsack.
-    - weights: a list of the weights of each item.
-    - values: a list of the value of each item.
+    - items: a list of tuples containing the weight and value of each item.
     returns:
     - The maximum possible utilization of the limited capacity of the knapsack when packing 
     the items.
