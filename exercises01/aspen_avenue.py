@@ -93,28 +93,35 @@ def dynamic_programming(trees: list[tuple[float, float]], left_spots: list[tuple
     for tree, right_spot, r in zip(sorted_trees, right_spots, range(1, len(right_spots) + 1)):
         minimum_distances[0][r] = minimum_distances[0][r - 1] + distance(tree, right_spot)
 
-    # The optimal way to place the first tree is on the left side. The optimal way
-    # to place the second tree is either on the left side or the right side depending
-    # on which leads to the smallest total amount of distance trees are moved. 
-    # Because of this both options are stored. The number of options increases by one 
-    # for each following tree, until half the trees has been considered. After half the 
-    # trees has been considered one of these options can be eliminated at a time, until 
-    # all trees has been considered. 
+    # The value in the cell at row l and column r is a minimum distance to move the 
+    # first l + r trees. It represents the minimum distance to move the trees in the
+    # specific case that l trees has been placed on the left side of the avenue and
+    # r trees on the right side.
     for l, left_spot in enumerate(left_spots, 1):
         for r, right_spot in enumerate(right_spots, 1):
+            # Given that we chose to place the (l + r):th tree on the left or right
+            # side of the avenue the distance it has to be moved is the distance
+            # between the dropped tree position to the l:th or r:th spot on the side
+            # of the avenue.
             tree = sorted_trees[l + r - 1]
             left_distance = distance(left_spot, tree)
             right_distance = distance(right_spot, tree)
 
+            # To determine if the (l + r):th tree should be placed on the left or
+            # right side of the avenue either the best way to place r trees on
+            # the right side or l trees on the left side of the avenue has to be
+            # considered
+
+            # If the (l + r):th tree is placed on the left side of the avenue the
+            # minimum total distance to place l - 1 trees on the left side of the
+            # avenue and r trees on the right side has to be considered and vice versa.
             left_alternative = minimum_distances[l - 1][r]
             right_alternative = minimum_distances[l][r - 1]
+            left_total = left_distance + left_alternative
+            right_total = right_distance + right_alternative
+            minimum_distances[l][r] = min(left_total, right_total)
 
-            left_minimum = left_distance + left_alternative
-            right_minimum = right_distance + right_alternative
-
-            minimum_distances[l][r] = min(left_minimum, right_minimum)
-
-    return minimum_distances[-1][-1]
+    return minimum_distances[len(left_spots)][len(right_spots)]
 
 def solve(length: int, width: int, trees: list[tuple[float, float]]) -> float:
     left, right = get_spots(len(trees), length, width)

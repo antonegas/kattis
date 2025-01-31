@@ -59,8 +59,9 @@ impossible
 
 def cover(interval: tuple[float, float], intervals: list[tuple[float, float]]) -> list[int]:
     """
-    Given an interval will find if it possible fully cover it given a set of intervals.
-    If it is possible to fully cover the interval it will give a list of 
+    Given an interval determine if it possible fully cover it given a set of intervals.
+    If it is possible to fully cover the interval determine minimal amount of indices 
+    which covers the interval. 
 
     algorithm: Chosing an interval which covers the most of the remaining interval, 
     including the left most element, results in the minimum number of intervals being used. 
@@ -95,7 +96,7 @@ def cover(interval: tuple[float, float], intervals: list[tuple[float, float]]) -
     # Loop until the interval is covered. The number of intervals which covers the interval 
     # needs to be atleast one.
     while low < high or len(result) == 0:
-        # Start the search for, the next interval, from the current low
+        # Start the search for the next interval, from the current low
         new_low = low
         best_index = None
 
