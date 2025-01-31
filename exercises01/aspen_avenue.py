@@ -88,10 +88,10 @@ def dynamic_programming(trees: list[tuple[float, float]], left_spots: list[tuple
     # spots would be in the order they appear in. The first column is initialized as
     # if only the left side was regarded and the top row is initialized as if only
     # the right side was regarded.
-    for tree, left_tree, l in zip(sorted_trees, left_spots, range(1, len(left_spots) + 1)):
-        minimum_distances[l][0] = minimum_distances[l - 1][0] + distance(tree, left_tree)
-    for tree, right_tree, r in zip(sorted_trees, right_spots, range(1, len(right_spots) + 1)):
-        minimum_distances[0][r] = minimum_distances[0][r - 1] + distance(tree, right_tree)
+    for tree, left_spot, l in zip(sorted_trees, left_spots, range(1, len(left_spots) + 1)):
+        minimum_distances[l][0] = minimum_distances[l - 1][0] + distance(tree, left_spot)
+    for tree, right_spot, r in zip(sorted_trees, right_spots, range(1, len(right_spots) + 1)):
+        minimum_distances[0][r] = minimum_distances[0][r - 1] + distance(tree, right_spot)
 
     # The optimal way to place the first tree is on the left side. The optimal way
     # to place the second tree is either on the left side or the right side depending
@@ -100,19 +100,19 @@ def dynamic_programming(trees: list[tuple[float, float]], left_spots: list[tuple
     # for each following tree, until half the trees has been considered. After half the 
     # trees has been considered one of these options can be eliminated at a time, until 
     # all trees has been considered. 
-    for l, left_tree in enumerate(left_spots):
-        for r, right_tree in enumerate(right_spots):
-            tree = sorted_trees[l + r + 1]
-            left_distance = distance(left_tree, tree)
-            right_distance = distance(right_tree, tree)
+    for l, left_spot in enumerate(left_spots, 1):
+        for r, right_spot in enumerate(right_spots, 1):
+            tree = sorted_trees[l + r - 1]
+            left_distance = distance(left_spot, tree)
+            right_distance = distance(right_spot, tree)
 
-            left_alternative = minimum_distances[l][r + 1]
-            right_alternative = minimum_distances[l + 1][r]
+            left_alternative = minimum_distances[l - 1][r]
+            right_alternative = minimum_distances[l][r - 1]
 
             left_minimum = left_distance + left_alternative
             right_minimum = right_distance + right_alternative
 
-            minimum_distances[l + 1][r + 1] = min(left_minimum, right_minimum)
+            minimum_distances[l][r] = min(left_minimum, right_minimum)
 
     return minimum_distances[-1][-1]
 
