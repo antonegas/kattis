@@ -18,6 +18,7 @@ def algorithm():
     - n is the XXX
     why:
     - XXX
+    reference: XXX
 
     parameters:
     - XXX
