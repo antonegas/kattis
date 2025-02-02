@@ -109,7 +109,7 @@ def djs_same(x: int, y: int, parent: list[int]):
     return djs_find(x, parent) == djs_find(y, parent)
 
 if __name__ == "__main__":
-    output = ""
+    output = list()
     data = open(0, "r").read()
     number_of_elements = int(data.split("\n")[0].split(" ")[0])
     operations = [tuple(operation.split(" ")) for operation in data.split("\n")[1:-1]]
@@ -118,8 +118,11 @@ if __name__ == "__main__":
 
     for operation, a, b in operations:
         if operation == "?":
-            output += "yes\n" if djs_same(int(a), int(b), parent) else "no\n"
+            if djs_same(int(a), int(b), parent):
+                output.append("yes\n")
+            else:
+                output.append("no\n")
         elif operation == "=":
             djs_union(int(a), int(b), parent, rank)
 
-    open(1, "w").write(output)
+    open(1, "w").write("".join(output))

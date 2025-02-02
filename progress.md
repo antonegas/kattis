@@ -4,7 +4,7 @@
 - [x] Interval Cover
 - [x] Knapsack
 - [x] Longest Increasing Subsequence
-- [ ] Union-Find
+- [x] Union-Find
 - [ ] Fenwick Tree
 - [ ] Polynomial Multiplication 2
 - [ ] Linear Equation Solver
