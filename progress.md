@@ -2,8 +2,8 @@
 
 ## Lab 1
 - [x] Interval Cover
-- [ ] Knapsack
-- [ ] Longest Increasing Subsequence
+- [x] Knapsack
+- [x] Longest Increasing Subsequence
 - [ ] Union-Find
 - [ ] Fenwick Tree
 - [ ] Polynomial Multiplication 2
@@ -46,9 +46,9 @@
 
 ## Exercise 1
 - [x] Help!
-- [ ] Ljutnja
+- [x] Ljutnja
 - [x] Spiderman's Workout
-- [ ] Aspen Avenue
+- [x] Aspen Avenue
 
 ## Exercise 2
 - [ ] Chopping Wood
