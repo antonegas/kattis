@@ -72,13 +72,13 @@ def knapsack(max_capacity: int, items: list[tuple[int, int]]) -> list[int]:
 
     capacity = max_capacity
 
+    # An item was packed in the knapsack if going back one item the value was lower at 
+    # the current capacity. If an item was packed decrease the used capacity with the
+    # weight of the item.
     for item in reversed(range(1, len(weights) + 1)):
-        # An item was packed in the knapsack if going back one item the value was lower at 
-        # the current capacity.
+        
         if max_values[item][capacity] > max_values[item - 1][capacity]:
             indices.append(item - 1)
-
-            # Decrease the capacity to check with the weight of an item if it was packed.
             capacity -= weights[item - 1]
 
     return indices
