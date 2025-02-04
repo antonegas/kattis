@@ -4,39 +4,40 @@
 
 using namespace std;
 
-void fenwickAdd(int index, int delta, vector<int> &tree);
-int fenwickSum(int index, vector<int> &tree);
+void fenwickAdd(long long index, long long delta, vector<long long> &tree);
+long long fenwickSum(long long index, vector<long long> &tree);
 
 int main() {
-    // ios::sync_with_stdio(false);
-    // cin.tie(NULL);
-    // cout.tie(NULL);
-    int N, Q;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    long long N, Q;
     char o;
-    int i, delta;
+    long long i, d;
     cin >> N >> Q;
-    vector<int> tree(N, 0);
-    while (true) {
-        cin >> o;
-        // if (o == '+') {
-        //     cin >> delta;
-        // } else if (o == '?') {
+    vector<long long> tree(N + 1, 0);
 
-        // }
+    while (cin >> o >> i) {
+        if (o == '+') {
+            cin >> d;
+            fenwickAdd(i + 1, d, tree);
+        } else if (o == '?') {
+            cout << fenwickSum(i, tree) << "\n";
+        }
     }
 
     return 0;
 }
 
-void fenwickAdd(int index, int delta, vector<int> &tree) {
+void fenwickAdd(long long index, long long delta, vector<long long> &tree) {
     while (index < tree.size()) {
         tree[index] += delta;
         index += index & (-index);
     } 
 }
 
-int fenwickSum(int index, vector<int> &tree) {
-    int sum;
+long long fenwickSum(long long index, vector<long long> &tree) {
+    long sum = 0;
     while (index > 0) {
         sum += tree[index];
         index -= index & (-index);
