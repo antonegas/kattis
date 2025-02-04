@@ -4,9 +4,6 @@
 
 using namespace std;
 
-const int MAX_INT = 2147483647;
-const int MIN_INT = -2147483648;
-
 int djsFind(int x, vector<int> &parent);
 void djsUnion(int x, int y, vector<int> &parent, vector<int> &rank);
 bool djsSame(int x, int y, vector<int> &parent);
