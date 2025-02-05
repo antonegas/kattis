@@ -41,7 +41,7 @@ out:
 """
 
 def push(stack):
-    stack.append(set())
+    stack.append(frozenset())
 
 def dup(stack):
     stack.append(stack[-1])
@@ -59,27 +59,9 @@ def intersect(stack):
 def add(stack):
     s1 = stack.pop()
     s2 = stack.pop()
-    s2.add(tuple(s1))
-    stack.append(s2)
+    stack.append(s2 | {hash(s1)})
 
-def setstack(operations):
-    """
-    XXX description XXX
-    algorithm: XXX
-    time complexity: O(XXX)
-    space complexity: O(XXX)
-    where:
-    - n is the XXX
-    why:
-    - XXX
-    reference: XXX
-
-    parameters:
-    - XXX
-    returns:
-    - XXX
-    """
-    
+def setstack(operations):    
     ops = {
         "PUSH": push,
         "DUP": dup,
