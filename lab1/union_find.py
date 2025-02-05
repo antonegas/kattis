@@ -112,17 +112,17 @@ if __name__ == "__main__":
     output = list()
     data = open(0, "r").read()
     number_of_elements = int(data.split("\n")[0].split(" ")[0])
-    operations = [tuple(operation.split(" ")) for operation in data.split("\n")[1:-1]]
 
     parent, rank = make_djss(number_of_elements)
 
-    for operation, a, b in operations:
+    for line in data.split("\n")[1:-1]:
+        operation, a, b = line.split(" ")
         if operation == "?":
             if djs_same(int(a), int(b), parent):
-                output.append("yes\n")
+                output.append("yes")
             else:
-                output.append("no\n")
+                output.append("no")
         elif operation == "=":
             djs_union(int(a), int(b), parent, rank)
 
-    open(1, "w").write("".join(output))
+    open(1, "w").write("\n".join(output))
