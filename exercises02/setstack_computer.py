@@ -40,8 +40,6 @@ out:
 
 """
 
-set()
-
 def push(stack):
     stack.append(frozenset())
 
