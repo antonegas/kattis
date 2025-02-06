@@ -5,7 +5,7 @@
 - [x] Knapsack
 - [x] Longest Increasing Subsequence
 - [x] Union-Find
-- [ ] Fenwick Tree
+- [x] Fenwick Tree
 - [ ] Polynomial Multiplication 2
 - [ ] Linear Equation Solver
 - [ ] Partial Linear Equation Solver
@@ -54,7 +54,7 @@
 - [ ] Chopping Wood
 - [ ] Turbo
 - [ ] Introspective Caching
-- [ ] The SetStack Computer
+- [x] The SetStack Computer
 
 ## Exercise 3
 - [ ] Perfect Pth Powers
