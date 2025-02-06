@@ -64,8 +64,7 @@ def cover(interval: tuple[float, float], intervals: list[tuple[float, float]]) -
     which covers the interval. 
 
     algorithm: Chosing an interval which covers the most of the remaining interval, 
-    including the left most element, results in the minimum number of intervals being used. 
-    A proof is left as an exercise for the reader (TDDD20, lecture 2).
+    including the left most element, results in the minimum number of intervals being used.
     time complexity: O(n*logn)
     where:
     - n is the number of intervals.
@@ -73,6 +72,7 @@ def cover(interval: tuple[float, float], intervals: list[tuple[float, float]]) -
     - O(n*logn) from sorting the intervals (python uses powersort/mergesort).
     - O(n) from looping over the sorted intervals.
     - O(n*logn+n) = O(nlogn).
+    reference: TDDD20, lecture 2
 
     parameters:
     - interval: the interval for which to find a minimal amount of intervals which covers it.
