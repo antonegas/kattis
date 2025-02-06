@@ -72,9 +72,7 @@ def cover(interval: tuple[float, float], intervals: list[tuple[float, float]]) -
     why:
     - O(n*logn) from sorting the intervals (python uses powersort/mergesort).
     - O(n) from looping over the sorted intervals.
-    - O(1) for popping the last element of a list
-    - O(1) for appending an element to a list.
-    - O(n*logn+n*(1+1)) = O(nlogn).
+    - O(n*logn+n) = O(nlogn).
 
     parameters:
     - interval: the interval for which to find a minimal amount of intervals which covers it.
