@@ -40,28 +40,28 @@ out:
 
 """
 
-def push(stack):
+def push(stack: list[frozenset]):
     stack.append(frozenset())
 
-def dup(stack):
+def dup(stack: list[frozenset]):
     stack.append(stack[-1])
 
-def union(stack):
+def union(stack: list[frozenset]):
     s1 = stack.pop()
     s2 = stack.pop()
     stack.append(s1 | s2)
 
-def intersect(stack):
+def intersect(stack: list[frozenset]):
     s1 = stack.pop()
     s2 = stack.pop()
     stack.append(s1 & s2)
 
-def add(stack):
+def add(stack: list[frozenset]):
     s1 = stack.pop()
     s2 = stack.pop()
     stack.append(s2 | {hash(s1)})
 
-def setstack(operations):    
+def setstack(operations: list[str]) -> list[int]:    
     ops = {
         "PUSH": push,
         "DUP": dup,
@@ -79,7 +79,7 @@ def setstack(operations):
 
     return result
 
-def solve(operations):
+def solve(operations: list[str]) -> list[int]:
     return setstack(operations)
 
 if __name__ == "__main__":
