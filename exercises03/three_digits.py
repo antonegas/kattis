@@ -33,7 +33,7 @@ out:
 def three_digits(number: int) -> str:
     result = 1
 
-    for i in range(1, number + 1):
+    for i in range(2, number + 1):
         result = result * i
         while result % 10 == 0:
             result = result // 10
