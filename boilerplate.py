@@ -27,13 +27,10 @@ def algorithm():
     """
     pass
 
-def solve():
-    pass
-
 if __name__ == "__main__":
-    output = ""
+    output = list()
     data = open(0, "r").read()
 
 
 
-    open(1, "w").write(output)
+    open(1, "w").write("\n".join(output))
