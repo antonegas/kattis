@@ -51,7 +51,7 @@
 - [x] Aspen Avenue
 
 ## Exercise 2
-- [ ] Chopping Wood
+- [x] Chopping Wood
 - [x] Turbo
 - [ ] Introspective Caching
 - [x] The SetStack Computer
