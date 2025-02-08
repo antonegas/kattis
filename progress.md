@@ -58,7 +58,7 @@
 
 ## Exercise 3
 - [ ] Perfect Pth Powers
-- [ ] Three Digits
+- [x] Three Digits
 - [ ] Ignore the Garbage
 - [ ] Dead Fraction
 
