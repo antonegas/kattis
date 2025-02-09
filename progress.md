@@ -24,7 +24,7 @@
 ## Lab 3
 - [ ] String Matching
 - [ ] Suffix Sorting
-- [ ] Dvaput
+- [ ] Longest Common Prefix
 - [ ] Rational Arithmetic
 - [ ] Modular Arithmetic
 - [ ] Chinese Remainder
