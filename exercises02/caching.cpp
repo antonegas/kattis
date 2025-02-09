@@ -9,25 +9,27 @@
 using namespace std;
 
 int main() {
-    long long c, n, a;
-    long long cacheMisses = 0;
+    int c, n, a;
+    int cacheMisses = 0;
+    int totalCached = 0;
     cin >> c >> n >> a;
-    vector<long long> accesses(a, 0);
-    unordered_set<long long> cache;
-    priority_queue<tuple<long long, long long>> furthestAccess;
-    unordered_map<long long, queue<long long>> nextAccess;
-    long long i = 0;
+    vector<int> accesses(a, 0);
+    vector<bool> cache(n, false);
+    vector<queue<int>> nextAccess(n, queue<int>());
+    priority_queue<tuple<int, int>> furthestAccess;
+    int i = 0;
     while (cin >> accesses[i]) i++;
     for (size_t i = 0; i < a; i++) nextAccess[accesses[i]].push(i);
 
-    for (long long &access : accesses) {
+    for (int &access : accesses) {
         nextAccess[access].pop();
-        while (!furthestAccess.empty() && cache.count(get<1>(furthestAccess.top())) == 0) furthestAccess.pop();
-        if (cache.count(access) > 0) continue;
-        if (cache.size() >= c) cache.erase(get<1>(furthestAccess.top()));
+        while (!furthestAccess.empty() && !cache[get<1>(furthestAccess.top())]) furthestAccess.pop();
+        if (cache[access]) continue;
+        if (cache.size() >= c) cache[get<1>(furthestAccess.top())] = false;
+        totalCached++;
         cacheMisses++;
         furthestAccess.emplace(make_tuple(nextAccess[access].front(), access));
-        cache.insert(access);
+        cache[access] = true;
     }
 
     cout << cacheMisses << endl;
