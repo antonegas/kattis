@@ -57,7 +57,7 @@
 - [x] The SetStack Computer
 
 ## Exercise 3
-- [ ] Perfect Pth Powers
+- [x] Perfect Pth Powers
 - [x] Three Digits
 - [x] Ignore the Garbage
 - [x] Dead Fraction

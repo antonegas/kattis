@@ -16,28 +16,34 @@ testcase 2:
 in:
 2147483648
 -27
+-25
 8
+-8
 0
 
 out:
 31
 3
+1
+3
 3
 
 """
 
-from math import isclose, pow
-
 def pth_power(number: int) -> int:
-    jumps = 1
-    if number < 0:
-        jumps = 2
-    
-    for power in reversed(range(1, 32, jumps)):
-        root = pow(abs(number), 1/power)
-        if not isclose(root, 1) and isclose(root, round(root)):
-            return power
-    
+    for b in range(2, int(abs(number)**0.5) + 1):
+        x = abs(number)
+        p = 0
+        while x % b == 0:
+            x = x // b
+            p += 1
+        if x != 1:
+            continue
+        if number > 0:
+            return p
+        if p % 2 == 1:
+            return p
+
     return 1
 
 if __name__ == "__main__":
