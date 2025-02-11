@@ -20,10 +20,11 @@ in:
 0.9...
 0.3...
 0.512512...
-0.142857142857...
 0.748181...
 0.1111...
 0.314...
+0.009...
+0.003...
 0
 
 out:
@@ -33,10 +34,11 @@ out:
 1/1
 1/3
 512/999
-1/7
 823/1100
 1/9
 283/900
+1/100
+1/300
 
 """
 
@@ -52,6 +54,7 @@ def dead_fraction(number: str) -> str:
         numerator = int(decimals) - int(f"0{decimals}"[:-i])
         denominator = 10**(len(decimals)) - 10**(len(decimals) - i)
         common_divisor = gcd(numerator, denominator)
+        
         if simplest_denominator > denominator // common_divisor:
             simplest_denominator = denominator // common_divisor
             simplest_numerator = numerator // common_divisor
