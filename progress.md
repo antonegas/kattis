@@ -60,7 +60,7 @@
 - [ ] Perfect Pth Powers
 - [x] Three Digits
 - [x] Ignore the Garbage
-- [ ] Dead Fraction
+- [x] Dead Fraction
 
 ## Exercise 4
 - [ ] Cudak
