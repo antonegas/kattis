@@ -6,7 +6,7 @@
 - [x] Longest Increasing Subsequence
 - [x] Union-Find
 - [x] Fenwick Tree
-- [ ] Polynomial Multiplication 2
+- [x] Polynomial Multiplication 2
 - [ ] Linear Equation Solver
 - [ ] Partial Linear Equation Solver
 
