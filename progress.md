@@ -7,8 +7,8 @@
 - [x] Union-Find
 - [x] Fenwick Tree
 - [x] Polynomial Multiplication 2
-- [ ] Linear Equation Solver
-- [ ] Partial Linear Equation Solver
+- [x] Linear Equation Solver
+- [x] Partial Linear Equation Solver
 
 ## Lab 2
 - [ ] Single source shortest path, non-negative weights
