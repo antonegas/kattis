@@ -48,10 +48,11 @@ def fft_helper(coefficients: list[complex], inverse: bool) -> list[complex]:
     reference: https://cp-algorithms.com/algebra/fft.html#implementation
 
     parameters:
-    - coefficients: a list of coefficients or a frequencies.
+    - coefficients: a list of coefficients or a frequencies (of length 2^k).
     - inverse: a boolean stating if the function is calculating the inverse ft or not.
     returns:
-    - 
+    - If not the inverse: a list of the frequencies.
+    - If the inverse: a list of the coefficients.
     """
 
     if len(coefficients) == 1:
