@@ -27,7 +27,7 @@ no
 
 """
 
-def make_djss(amount: int) -> tuple[list[int], list[int]]:
+def make_disjoint_sets(amount: int) -> tuple[list[int], list[int]]:
     """
     Given the number of sets creates the data structures to allow union-find O(logn) time complexity.
     reference: https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Making_new_sets
@@ -41,17 +41,22 @@ def make_djss(amount: int) -> tuple[list[int], list[int]]:
 
     return parent, rank
 
-def djs_union(x: int, y: int, parent: list[int], rank: list[int]):
+def disjoint_set_union(x: int, y: int, parent: list[int], rank: list[int]):
     """
-    Given two
+    Given two elements performs the union operation on the sets which contains the 
+    two elements by updating the parent and rank lists.
 
-    algorithm: XXX
-    time complexity: O(XXX)
-    space complexity: O(XXX)
+    algorithm: After having performed the union operation both elements should be in the 
+    same tree, in other words they should have the same root node. If the elements already 
+    share root node nothing needs to be done. Otherwise the parent with the highest rank 
+    becomes the root node of the union and the other parent becomes a child node. 
+    This results in a lower depth of the resulting union.
+    time complexity: O(a(n))
     where:
-    - n is the XXX
+    - n is the total number of elements in all of the sets.
+    - a is the inverse Ackermann function which grows extraordinarily slowly.
     why:
-    - XXX
+    - a(n) from the depth of the tree.
     reference: https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Union_by_rank
 
     parameters:
@@ -60,11 +65,11 @@ def djs_union(x: int, y: int, parent: list[int], rank: list[int]):
     - parent: a list of parent indices for the trees in the forest of disjoint sets.
     - rank: a list of the rank of each element.
     returns:
-    - Nothing but
+    - Nothing but will update both the parent and rank lists.
     """
     
-    x_parent = djs_find(x, parent)
-    y_parent = djs_find(y, parent)
+    x_parent = disjoint_set_find(x, parent)
+    y_parent = disjoint_set_find(y, parent)
 
     if x_parent != y_parent:
         if rank[x_parent] < rank[y_parent]:
@@ -73,25 +78,27 @@ def djs_union(x: int, y: int, parent: list[int], rank: list[int]):
         if rank[x_parent] == rank[y_parent]:
             rank[x_parent] += 1
 
-def djs_find(x: int, parent: list[int]) -> int:
+def disjoint_set_find(x: int, parent: list[int]) -> int:
     """
-    XXX description XXX
+    Given an element finds the root node of the tree which identifies the disjoint set.
 
-    algorithm: XXX
-    time complexity: O(XXX)
-    space complexity: O(XXX)
+    algorithm: The root a tree identifies a set. An element which has it self as its parent is a
+    root node. If the current element is not the root of the tree go up the tree. Nodes which are
+    not direct children to the root node are moved up in the tree by changing their parent to their
+    parents parent. This will drastically decrease the speed at which the depth of the tree increases.
+    time complexity: O(a(n))
     where:
-    - n is the XXX
+    - n is the total number of elements in all of the sets.
+    - a is the inverse Ackermann function which grows extraordinarily slowly.
     why:
-    - XXX
+    - a(n) from the depth of the tree.
     reference: https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Finding_set_representatives
 
     parameters:
-    - x: an element in set X
-    - y: an element in set Y
+    - x: an element in set X.
     - parent: a list of parent indices for the trees in the forest of disjoint sets.
     returns:
-    - XXX
+    - The root node of the tree representing the disjoint set containing x.
     """
     
     # If the element is the same as it's parent then x is the root of a tree.
@@ -99,30 +106,30 @@ def djs_find(x: int, parent: list[int]) -> int:
         return x
     
     # Reparent the element which will make future operations quicker.
-    parent[x] = djs_find(parent[x], parent)
+    parent[x] = disjoint_set_find(parent[x], parent)
     return parent[x]
 
-def djs_same(x: int, y: int, parent: list[int]):
+def disjoint_set_same(x: int, y: int, parent: list[int]):
     """
-    Checks if two 
+    Checks if two elements are in the same set.
     """
-    return djs_find(x, parent) == djs_find(y, parent)
+    return disjoint_set_find(x, parent) == disjoint_set_find(y, parent)
 
 if __name__ == "__main__":
     output = list()
     data = open(0, "r").read()
     number_of_elements = int(data.split("\n")[0].split(" ")[0])
 
-    parent, rank = make_djss(number_of_elements)
+    parent, rank = make_disjoint_sets(number_of_elements)
 
     for line in data.split("\n")[1:-1]:
         operation, a, b = line.split(" ")
         if operation == "?":
-            if djs_same(int(a), int(b), parent):
+            if disjoint_set_same(int(a), int(b), parent):
                 output.append("yes")
             else:
                 output.append("no")
         elif operation == "=":
-            djs_union(int(a), int(b), parent, rank)
+            disjoint_set_union(int(a), int(b), parent, rank)
 
     open(1, "w").write("\n".join(output))
