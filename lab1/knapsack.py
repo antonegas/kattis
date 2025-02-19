@@ -37,7 +37,6 @@ def knapsack(max_capacity: int, items: list[tuple[int, int]]) -> list[int]:
     why:
     - O(n) from looping over the items.
     - O(c) from looping over the capacities.
-    - O(1) for random accesses in a list.
     - The indices of items packed needs to be stored in n*c matrix hence the space complexity.
     reference: https://en.wikipedia.org/wiki/Knapsack_problem#0-1_knapsack_problem
 
