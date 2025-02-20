@@ -35,48 +35,54 @@ def strip_list(a: list[int]):
             return a[:i + 1]
     return []
 
-def fft_helper(coefficients: list[complex], inverse: bool) -> list[complex]:
+def fft_helper(a: list[complex], inverse: bool) -> list[complex]:
     """
     Converts a list of real or complex numbers to or from the frequency domain using fast Fourier transform.
 
-    algorithm: XXX
+    algorithm: Fast Fourier transform uses divide and conquer to split the problem into equal parts. 
+    It uses the fact that a polynomial: A(x) = a_0+a_1x+...+a_(n-1)x^(n-1) = A0(x^2) + x*A1(x^2), where 
+    A1(x) = a_0 + a2x + ... + a_(n-2)x^(n/2-1), A2(x) = a_1 + a_3x + ... + a_(n-1)x^(n/2-1). This can then
+    be applied down to AN(x) = a_k.
     time complexity: O(n*logn)
     where:
-    - n is the number coefficients.
+    - n is the number elements in a.
     why:
-    - XXX
+    - logn from the number of times A(x) can be split in half.
+    - n from applying A(x) = A0(x^2) + x*A1(x^2).
     reference: https://cp-algorithms.com/algebra/fft.html#implementation
 
     parameters:
-    - coefficients: a list of coefficients or a frequencies (of length 2^k).
+    - a: a list of coefficients or a frequencies (of length 2^k).
     - inverse: a boolean stating if the function is calculating the inverse ft or not.
     returns:
     - If not the inverse: a list of the frequencies.
     - If the inverse: a list of the coefficients.
     """
 
-    if len(coefficients) == 1:
-        return coefficients
+    # Base case.
+    if len(a) == 1:
+        return a
     
-    a0 = fft_helper(coefficients[::2], inverse)
-    a1 = fft_helper(coefficients[1::2], inverse)
+    # Split the polynomial a into a0 and a1.
+    a0 = fft_helper(a[::2], inverse)
+    a1 = fft_helper(a[1::2], inverse)
 
-    angle = 2 * pi / len(coefficients)
+    angle = 2 * pi / len(a)
     if inverse:
         angle = -angle
 
     w = complex(1, 0)
     wn = complex(cos(angle), sin(angle))
 
-    result = coefficients
+    result = a
 
     for a0_i, a1_i, i in zip(a0, a1, range(len(a0))):
         result[i] = a0_i + w * a1_i
-        result[i + len(coefficients) // 2] = a0_i - w * a1_i
+        result[i + len(a) // 2] = a0_i - w * a1_i
 
         if inverse:
             result[i] = result[i] / 2
-            result[i + len(coefficients) // 2] = result[i + len(coefficients) // 2] / 2
+            result[i + len(a) // 2] = result[i + len(a) // 2] / 2
 
         w = w * wn
 
@@ -86,40 +92,48 @@ def polynomial_multiplication(a: list[int], b: list[int]) -> list[int]:
     """
     Multiplies two polynomials using fast Fourier transformation.
 
-    algorithm: XXX
+    algorithm: Doing polynomial multiplications in naively requires n^2. Doing the same
+    thing in the frequency domain requires 2*n operations. Converting to and from the 
+    frequency domain can be done using FFT and inverse FFT.
     time complexity: O(n*logn)
     where:
     - n is the number of coefficients in the polynomials.
     why:
-    - XXX
+    - O(n*logn) from doing FFT and inverse FFT.
+    - O(n) from doing multiplications in the frequency domain.
+    - O(n*logn+n) = O(n*logn)
     reference: https://cp-algorithms.com/algebra/fft.html#implementation
 
     parameters:
-    - a: a list of coefficients in a polynomial given on the form a1 + a2x + ... + anx^n.
-    - b: a list of coefficients in a polynomial given on the form b1 + b2x + ... + bnx^n.
+    - a: a list of integer coefficients in a polynomial given on the form a1 + a2x + ... + anx^n.
+    - b: a list of integer coefficients in a polynomial given on the form b1 + b2x + ... + bnx^n.
     returns:
     - The result of multiplying the polynomial a and b given on the same form.
     """
 
-    fa = a[:]
-    fb = b[:]
+    # The maximum number of coefficients in the resulting polynomial will be the sum of 
+    # the number of coefficients. In order to perform FFT on the length of the list needs
+    # to be a power of 2.
     n = 1
 
-    while n < len(fb) + len(fa):
+    while n < len(a) + len(b):
         n = n << 1
 
-    fa = pad_list(fa, n)
-    fb = pad_list(fb, n)
+    # Both the lists of coefficients are converted to the frequency domain. As before the 
+    # length of the lists needs to be a power of 2.
+    frequency_domain_a = fft(pad_list(a[:], n))
+    frequency_domain_b = fft(pad_list(b[:], n))
 
-    fa = fft(fa)
-    fb = fft(fb)
-
+    # In the frequency domain |a| + |b| multiplications needs to be performed as compared
+    # to |a| * |b| which would be needed when just multiplying the coefficients.
     for i in range(n):
-        fa[i] *= fb[i]
+        frequency_domain_a[i] *= frequency_domain_b[i]
 
-    fa = fft_inverse(fa)
+    # To get back to the resulting coefficients inverse FFT is used.
+    frequency_domain_a = fft_inverse(frequency_domain_a)
 
-    return [*map(lambda x: round(x.real), fa)]
+    # The resulting coefficients should also be integers.
+    return [*map(lambda x: round(x.real), frequency_domain_a)]
 
 def fft(coefficients: list[int]) -> list[complex]:
     """
