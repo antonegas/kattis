@@ -58,8 +58,9 @@ def gauss_jordan(matrix: list[list[float]], rhs: list[float]) -> list[float]:
     """
 
     EPSILON = 1e-9
-    a = [matrix[i] + [rhs[i]] for i in range(len(rhs))]
 
+    # The algorithm as described should have the right hand side vector appended to the matrix.
+    a = [matrix[i] + [rhs[i]] for i in range(len(rhs))]
     n = len(rhs)
     
     where = [-1] * n
@@ -68,10 +69,12 @@ def gauss_jordan(matrix: list[list[float]], rhs: list[float]) -> list[float]:
     for column in range(n):
         pivot = row
 
+        # Select the row with the largest absolute value as the pivot.
         for i in range(row, n):
             if abs(a[i][column]) > abs(a[pivot][column]):
                 pivot = i
 
+        # If the absolute value at the pivot is close to zero no valid pivot exists.
         if abs(a[pivot][column]) < EPSILON:
             continue
 
@@ -97,12 +100,17 @@ def gauss_jordan(matrix: list[list[float]], rhs: list[float]) -> list[float]:
         if where[i] != -1:
             result[i] = a[where[i]][n] / a[where[i]][i]
 
+    # Check if the equation system is inconsistent by seeing if the calculated value 
+    # is different from the right hand side.
     for i in range(n):
         s = sum([result[j] * a[i][j] for j in range(n)])
 
         if abs(s - a[i][n]) > EPSILON:
             return []
-        
+    
+    # Check if the equation system contains variables which may take multiple values.
+    # A variable can take multiple values if no pivot was found or if it depends on
+    # a variable which may take multiple values.
     for i in range(n):
         if where[i] != -1:
             continue
