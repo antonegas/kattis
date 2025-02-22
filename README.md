@@ -69,7 +69,7 @@
 - [ ] Funny Games
 
 ## Exercise 5
-- [ ] Getting Gold
+- [x] Getting Gold
 - [ ] Frogger
 - [ ] Killing Aliens in a Borg Maze
 - [ ] Proving Equivalences
