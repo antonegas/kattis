@@ -70,7 +70,7 @@
 
 ## Exercise 5
 - [x] Getting Gold
-- [ ] Frogger
+- [x] Frogger
 - [ ] Killing Aliens in a Borg Maze
 - [ ] Proving Equivalences
 
