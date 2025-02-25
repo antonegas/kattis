@@ -10,17 +10,9 @@ def frogger(l,n,m,r):
         if r[y][x]=="G":return t
 
         for nx, ny, nt in [(x+dx,y+dy,t+1) for dx, dy in [(0,0),(1,0),(0,-1),(-1,0),(0,1)]]:
-            if nx < 0 or nx >= m or ny < 0 or ny >= n + 2:
-                continue
-
-            if r[ny][(nx-((len(r)-1-ny)%2*2-1)*nt)%len(r[0])]=="X":
-                continue
-
-            if (nx,ny,nt%m) in v:
-                continue
-
+            if (nx<0)|(nx>=m)|(ny<0|ny>=n+2)|(r[ny][(nx-((len(r)-1-ny)%2*2-1)*nt)%len(r[0])]=="X")|((nx,ny,nt%m) in v):continue
             v.add((nx,ny,nt%m))
-            q.append((nx, ny, nt))
+            q.append((nx,ny,nt))
 
     return -1
 
