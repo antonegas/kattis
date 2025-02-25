@@ -1,19 +1,10 @@
-from collections import *
-def frogger(l,n,m,r):
-    v=set();q=deque();x=r[-1].find("F");s=(x,n+1,0);v.add((x,n+1,0));q.append(s)
-
-    while q:
-        x,y,t=q.popleft()
-
-        if t>l:continue
-
-        if r[y][x]=="G":return t
-
-        for nx, ny, nt in [(x+dx,y+dy,t+1) for dx, dy in [(0,0),(1,0),(0,-1),(-1,0),(0,1)]]:
-            if (nx<0)|(nx>=m)|(ny<0|ny>=n+2)|(r[ny][(nx-((len(r)-1-ny)%2*2-1)*nt)%len(r[0])]=="X")|((nx,ny,nt%m) in v):continue
-            v.add((nx,ny,nt%m))
-            q.append((nx,ny,nt))
-
-    return -1
-
-for _ in range(int(input())):x=int(input());n,m=map(int,input().split());r=[input() for _ in range(n+2)];t=frogger(x,n,m,r);print("The problem has no solution.") if t<0 else print(f"The minimum number of turns is {t}.")
+i=input
+for _ in range(int(i())):
+ l=int(i());n,m=map(int,i().split());r=[i() for _ in range(n+2)];v=set();q=[(r[-1].find("F"),n+1,0)];v.add(q[0])
+ while q:
+  x,y,t=q.pop(0)
+  if r[y][x]=="G":print(f"The minimum number of turns is {t}.");break
+  t+=1
+  for x,y in [(x,y),(x+1,y),(x,y-1),(x-1,y),(x,y+1)]:
+   if not(x<0 or x>=m or y<0 or y>=n+2 or t>l or r[y][(x-((len(r)-1-y)%2*2-1)*t)%len(r[0])]=="X" or (x,y,t%m) in v):v.add((x,y,t%m));q.append((x,y,t))
+ else:print("The problem has no solution.")
