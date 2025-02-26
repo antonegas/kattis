@@ -1,47 +1,3 @@
-# Labs
-
-## Lab 1
-- [x] Interval Cover
-- [x] Knapsack
-- [x] Longest Increasing Subsequence
-- [x] Union-Find
-- [x] Fenwick Tree
-- [x] Polynomial Multiplication 2
-- [x] Linear Equation Solver
-- [x] Partial Linear Equation Solver
-
-## Lab 2
-- [ ] Single source shortest path, non-negative weights
-- [ ] Single source shortest path, time table
-- [ ] Single source shortest path, negative weights
-- [ ] All Pairs Shortest Path
-- [x] Minimum Spanning Tree
-- [ ] Maximum Flow
-- [ ] Minimum Cut
-- [ ] Minimum Cost Maximum Flow
-- [ ] Eulerian Path
-
-## Lab 3
-- [ ] String Matching
-- [ ] Suffix Sorting
-- [ ] Longest Common Prefix
-- [ ] Rational Arithmetic
-- [ ] Modular Arithmetic
-- [ ] Chinese Remainder
-- [ ] Chinese Remainder Theorem (non-relatively prime moduli)
-- [ ] Prime Sieve
-
-## Lab 4
-- [ ] Point class
-- [ ] Polygon Area
-- [ ] Line Segment Intersection
-- [ ] Line Segment Distance
-- [ ] Closest Pair (Uniform)
-- [ ] Closest Pair
-- [ ] Convex Hull
-- [ ] Maximum Number of Colinear Points
-- [ ] Linear Recurrences
-
 # Exercises
 
 ## Exercise 1
@@ -121,3 +77,63 @@
 - [ ] (un)Fair Play
 - [ ] Bag of Tiles
 - [ ] Towers of Powers 2: Power Harder
+
+# Labs
+
+## Lab 1
+- [x] Interval Cover
+- [x] Knapsack
+- [x] Longest Increasing Subsequence
+- [x] Union-Find
+- [x] Fenwick Tree
+- [x] Polynomial Multiplication 2
+- [x] Linear Equation Solver
+- [x] Partial Linear Equation Solver
+
+## Lab 2
+- [ ] Single source shortest path, non-negative weights
+- [ ] Single source shortest path, time table
+- [ ] Single source shortest path, negative weights
+- [ ] All Pairs Shortest Path
+- [x] Minimum Spanning Tree
+- [ ] Maximum Flow
+- [ ] Minimum Cut
+- [ ] Minimum Cost Maximum Flow
+- [ ] Eulerian Path
+
+## Lab 3
+- [ ] String Matching
+- [ ] Suffix Sorting
+- [ ] Longest Common Prefix
+- [ ] Rational Arithmetic
+- [ ] Modular Arithmetic
+- [ ] Chinese Remainder
+- [ ] Chinese Remainder Theorem (non-relatively prime moduli)
+- [ ] Prime Sieve
+
+## Lab 4
+- [ ] Point class
+- [ ] Polygon Area
+- [ ] Line Segment Intersection
+- [ ] Line Segment Distance
+- [ ] Closest Pair (Uniform)
+- [ ] Closest Pair
+- [ ] Convex Hull
+- [ ] Maximum Number of Colinear Points
+- [ ] Linear Recurrences
+
+# Problem Solving Sessions
+
+## Session 0
+- [x] Babelfish
+- [ ] CD
+- [ ] Closests Sums
+- [ ] Mathemagicians
+
+## Session 1
+- [ ] Classrooms
+- [ ] Alice in the Digital World
+- [ ] Train Sorting
+- [ ] Movie Collection
+- [ ] Walrus Weights
+- [x] Rational Ratio
