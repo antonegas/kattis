@@ -27,7 +27,7 @@
 ## Exercise 5
 - [x] Getting Gold
 - [x] Frogger
-- [ ] Killing Aliens in a Borg Maze
+- [x] Killing Aliens in a Borg Maze
 - [ ] Proving Equivalences
 
 ## Exercise 6
