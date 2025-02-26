@@ -15,7 +15,7 @@
 - [ ] Single source shortest path, time table
 - [ ] Single source shortest path, negative weights
 - [ ] All Pairs Shortest Path
-- [ ] Minimum Spanning Tree
+- [x] Minimum Spanning Tree
 - [ ] Maximum Flow
 - [ ] Minimum Cut
 - [ ] Minimum Cost Maximum Flow
