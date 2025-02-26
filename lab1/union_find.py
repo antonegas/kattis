@@ -27,7 +27,7 @@ no
 
 """
 
-def make_disjoint_sets(amount: int) -> tuple[list[int], list[int]]:
+def create_disjoint_sets(amount: int) -> tuple[list[int], list[int]]:
     """
     Given the number of sets creates the data structures to allow union-find O(logn) time complexity.
     reference: https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Making_new_sets
