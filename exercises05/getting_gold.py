@@ -69,7 +69,6 @@ def getting_gold(width: int, height: int, grid: list[str]) -> int:
             visited[ny][nx] = True
 
             q.append(coord)
-        
 
     return gold
 
