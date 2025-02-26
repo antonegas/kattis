@@ -113,9 +113,6 @@ if __name__ == "__main__":
     output = list()
     lines = open(0, "r").read().splitlines()[:-1]
 
-    n = 0
-    m = 0
-
     index = 0
 
     while index < len(lines):
