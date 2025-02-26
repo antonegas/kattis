@@ -16,28 +16,29 @@ Mikael
 
 """
 
-from math import ceil, log
-from functools import cache
-
-@cache
-def get_winner(x: float, factor_weapons: tuple[float], depth: int) -> int:
-    player = depth % 2
+def min_max(x: float, factor_weapons: list[float], depth: int, memo: dict[float, int]) -> int:
+    if x in memo:
+        return memo[x]
     
     if x <= 1:
-        return not player
+        return depth % 2
     
+    best = -1
+
     for factor_weapon in factor_weapons:
-        winner = get_winner(x * factor_weapon, factor_weapons, depth + 1)
-        if winner == player:
-            return player
-        
-    return (player + 1) % 2
+        winner = min_max(x * factor_weapon, factor_weapons, depth + 1, memo)
+        if best < 0 or winner == depth % 2:
+            best = winner
+
+    memo[x] = best
+
+    return best
 
 if __name__ == "__main__":
     output = list()
     data = open(0, "r").read()
     
     for x, _, *factor_weapons in [map(float, x.split(" ")) for x in data.split("\n")[1:-1]]:
-        print(["Nils", "Mikael"][get_winner(x, tuple(factor_weapons), 0)])
+        print(["Mikael", "Nils"][min_max(x, factor_weapons, 0, dict())])
 
     open(1, "w").write("\n".join(output))
