@@ -28,7 +28,7 @@
 - [x] Getting Gold
 - [x] Frogger
 - [x] Killing Aliens in a Borg Maze
-- [ ] Proving Equivalences
+- [x] Proving Equivalences
 
 ## Exercise 6
 - [ ] George
