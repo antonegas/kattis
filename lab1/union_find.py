@@ -120,7 +120,7 @@ if __name__ == "__main__":
     data = open(0, "r").read()
     number_of_elements = int(data.split("\n")[0].split(" ")[0])
 
-    parent, rank = make_disjoint_sets(number_of_elements)
+    parent, rank = create_disjoint_sets(number_of_elements)
 
     for line in data.split("\n")[1:-1]:
         operation, a, b = line.split(" ")
