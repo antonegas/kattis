@@ -68,7 +68,7 @@ def dijkstra(adjacent: list[list[tuple[int, int]]], source: int) -> tuple[list[f
 
         # If the vertex has already been visited it can be ignored. If it has not been visited it means that the 
         # shortest distance to the reach it has been found and that its previous vertex can be set. The vertex is then 
-        # marked as visited
+        # marked as visited.
         if visited[vertex]:
             continue
 
