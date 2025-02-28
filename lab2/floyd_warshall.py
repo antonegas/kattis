@@ -35,17 +35,17 @@ def floyd_warshall(original: list[list[float]]) -> list[list[float]]:
     of nodes and seeing if there exists a shorter path between them which goes through another node.
     Negative cycles are detected by running the algorithm again and seeing if it results in even 
     shorter paths.
-    time complexity: O(n^3)
+    time complexity: O(|V|^3)
     where:
-    - n is the the number of nodes.
+    - |V| is the the number of vertices.
     why:
-    - O(n^3) from looping through every pair of nodes and check if it is shorter to go through k.
+    - O(|V|^3) from looping through every pair of vertices and check if going through the vertex k is shorter.
     reference: https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm#Pseudocode
 
     parameters:
     - original: a matrix with orignal[from][to] giving the weight of going from a node to another.
     returns:
-    - A graph with the shortest paths from each vertex to each vertex.
+    - A graph with the shortest paths from and to each pair of vertices.
     """
 
     graph = [destination[:] for destination in original] # Copy original graph.
