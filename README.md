@@ -91,7 +91,7 @@
 - [x] Partial Linear Equation Solver
 
 ## Lab 2
-- [ ] Single source shortest path, non-negative weights
+- [x] Single source shortest path, non-negative weights
 - [ ] Single source shortest path, time table
 - [ ] Single source shortest path, negative weights
 - [x] All Pairs Shortest Path
