@@ -69,7 +69,7 @@ def disjoint_set_same(x: int, y: int, parent: list[int]):
     """
     return disjoint_set_find(x, parent) == disjoint_set_find(y, parent)
 
-def kruskal(edges: list[tuple[int, int, int]], vertices: int) -> list[tuple[int, int, int]]:
+def kruskals(edges: list[tuple[int, int, int]], vertices: int) -> list[tuple[int, int, int]]:
     """
     Finds a mimimum spanning tree using Kruskal's algorithm.
 
@@ -125,7 +125,7 @@ if __name__ == "__main__":
             edges.append((w, u, v))
             index += 1
 
-        tree = kruskals_algorithm(edges, n)
+        tree = kruskals(edges, n)
 
         if len(tree) < n - 1:
             output.append("Impossible")
