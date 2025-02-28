@@ -30,23 +30,23 @@ from collections import deque
 
 def getting_gold(width: int, height: int, grid: list[str]) -> int:
     visited = [[False] * width for _ in range(height)]
-    q = deque()
+    queue = deque()
 
     for x in range(width):
         for y in range(height):
             if grid[y][x] == "P":
                 start = (x, y)
                 visited[y][x] = True
-                q.append(start)
+                queue.append(start)
                 break
 
-        if len(q) == 1:
+        if len(queue) == 1:
             break
 
     gold = 0
 
-    while q:
-        x, y = q.popleft()
+    while queue:
+        x, y = queue.popleft()
 
         if grid[y][x] == "G":
             gold += 1
@@ -68,7 +68,7 @@ def getting_gold(width: int, height: int, grid: list[str]) -> int:
 
             visited[ny][nx] = True
 
-            q.append(coord)
+            queue.append(coord)
 
     return gold
 

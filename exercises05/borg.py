@@ -102,16 +102,16 @@ def kruskals_algorithm(edges: list[tuple[int, int, int]], vertices: int) -> list
 
 def bfs(maze: list[str], positions: list[list[int]], start: tuple[int, int, int]) -> list[tuple[int, int, int]]:
     visited = [[False] * len(maze[0]) for _ in range(len(maze))]
-    q = deque()
+    queue = deque()
 
     index, x, y = start
     visited[y][x] = True
-    q.append((0, x, y))
+    queue.append((0, x, y))
 
     edges = list()
 
-    while q:
-        w, x, y = q.popleft()
+    while queue:
+        w, x, y = queue.popleft()
         position_index = positions[y][x]
 
         if position_index > index:
@@ -128,7 +128,7 @@ def bfs(maze: list[str], positions: list[list[int]], start: tuple[int, int, int]
 
             visited[y][x] = True
 
-            q.append((w, x, y))
+            queue.append((w, x, y))
 
     return edges
 

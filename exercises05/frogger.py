@@ -32,16 +32,16 @@ def contains_car(motorway, x, y, t):
 
 def frogger(max_time: int, n: int, m: int, motorway: list[str]):
     visited = [[[False] * m for _ in range(m)] for _ in range(n + 2)]
-    q = deque()
+    queue = deque()
 
     fx = motorway[-1].find("F")
     start = (fx, n + 1, 0)
     visited[n + 1][fx][0]
 
-    q.append(start)
+    queue.append(start)
 
-    while q:
-        x, y, t = q.popleft()
+    while queue:
+        x, y, t = queue.popleft()
 
         if t > max_time:
             continue
@@ -62,7 +62,7 @@ def frogger(max_time: int, n: int, m: int, motorway: list[str]):
                 continue
 
             visited[ny][nx][nt % m] = True
-            q.append((nx, ny, nt))
+            queue.append((nx, ny, nt))
 
     return -1
 
