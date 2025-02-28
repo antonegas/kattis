@@ -33,7 +33,7 @@ def dijkstra(adjacent: list[list[tuple[int, int]]], source: int) -> tuple[list[f
 
     algorithm: The algorithm used is Dijkstra's algorithm. It starts at a vertex and adds adjacent 
     vertices to a priotiy queue where they are ordered by the cost of the connecting edge and the 
-    cost of reaching the vertex. After each iteration the top vertex in the priority queue is removed 
+    cost of reaching the vertex. After each iteration the top vertex of the priority queue is removed 
     and the cheapest path to the vertex has been found.
     time complexity: O(|E| + |V|*log|V|)
     where:
