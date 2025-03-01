@@ -92,7 +92,7 @@
 
 ## Lab 2
 - [x] Single source shortest path, non-negative weights
-- [ ] Single source shortest path, time table
+- [x] Single source shortest path, time table
 - [ ] Single source shortest path, negative weights
 - [x] All Pairs Shortest Path
 - [x] Minimum Spanning Tree
