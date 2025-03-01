@@ -50,7 +50,7 @@ def time_table_dijkstra(timetable: list[list[tuple[int, int, int, int]]], source
     - timetable: a list which at a given index contains the time table for a edge from the vertex at the given index.
     - source: an integer representing the index of the source vertex.
     returns:
-    - A tuple of two lists. The first list contains the time needed to reach a vertex from the source node and the 
+    - A tuple of two lists. The first list contains the time required to reach a vertex from the source node and the 
     second list the previous vertex in the path to reach the vertex. The previous vertex value being negative indicates 
     that there either is no path or that the vertex is the source node.
     """
@@ -68,8 +68,8 @@ def time_table_dijkstra(timetable: list[list[tuple[int, int, int, int]]], source
         time, vertex, previous_vertex = heappop(queue)
 
         # If the vertex has already been visited it can be ignored. If it has not been visited it means that the 
-        # least time needed to the reach it has been found and that its previous vertex can be set. The vertex is then 
-        # marked as visited.
+        # least time required to the reach it has been found and that its previous vertex can be set. The vertex is 
+        # then marked as visited.
         if visited[vertex]:
             continue
 
@@ -77,20 +77,20 @@ def time_table_dijkstra(timetable: list[list[tuple[int, int, int, int]]], source
         previous[vertex] = previous_vertex
         visited[vertex] = True
 
-        # Add adjacent vertices to the queue with the time needed set based on the time table.
+        # Add adjacent vertices to the queue with the time required set based on the time table.
         for adjacent_vertex, edge_t0, edge_period, edge_time in timetable[vertex]:
             # If the period for the edge is zero the edge can only be used if t0 has not passed.
             if edge_period == 0 and time > edge_t0:
                 continue
 
             if time <= edge_t0:
-                # If t0 has not passed the time needed is t0 plus the time required to use the edge.
+                # If t0 has not passed the time required is t0 plus the time required to use the edge.
                 adjacent_time = edge_t0 + edge_time
                 heappush(queue, (adjacent_time, adjacent_vertex, vertex))
             else:
                 # If t0 has passed the time required is the current time, the time remaining until the edge becomes 
                 # available again and the time required to use the edge.
-                time_until_available =  (edge_period - (((time - edge_t0) % edge_period) - edge_period)) % edge_period
+                time_until_available =  (edge_period - ((time - edge_t0) % edge_period)) % edge_period
                 adjacent_time = time + time_until_available + edge_time
                 heappush(queue, (adjacent_time, adjacent_vertex, vertex))
 
