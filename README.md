@@ -32,7 +32,7 @@
 
 ## Exercise 6
 - [ ] George
-- [ ] Island Hopping
+- [x] Island Hopping
 - [ ] Full Tank?
 - [ ] Councilling
 
