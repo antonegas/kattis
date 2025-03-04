@@ -29,8 +29,9 @@ def algorithm():
 
 if __name__ == "__main__":
     output = list()
-    data = open(0, "r").read()
+    lines = open(0, "r").read().splitlines()
 
+    index = 0
 
 
     open(1, "w").write("\n".join(output))
