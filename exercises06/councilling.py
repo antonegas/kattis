@@ -37,55 +37,60 @@ Impossible.
 from collections import deque, defaultdict
 from math import ceil
 
-def bfs(capacities: list[list[int]], flow: list[list[int]], adjacent: list[list[int]], source: int, target: int) -> list[int]:
-    """
-    Gives a shortest augmented path from source to target.
-    """
+from collections import deque
+
+def bfs(source: int, capacity: list[list[int]], flow: list[list[int]], adjacent: list[list[int]]) -> list[int]:
+    level = [-1] * len(adjacent)
+    level[source] = 0
+
     queue = deque()
     queue.append(source)
-    parent = [-1] * len(adjacent)
-    visited = [False] * len(adjacent)
-    visited[source] = True
 
-    if source == target:
-        return parent
-    
     while len(queue) > 0:
         u = queue.popleft()
+
         for v in adjacent[u]:
-            if capacities[u][v] - flow[u][v] > 0 and not visited[v]:
-                parent[v] = u
-                visited[v] = True
-                if v == target:
-                    return parent
-                queue.append(v)
+            if capacity[u][v] == flow[u][v] or level[v] != -1:
+                continue
+            level[v] = level[u] + 1
+            queue.append(v)
 
-    return []
+    return level
 
-def edmonds_karp(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
-    capacity_graph = [u[:] for u in graph]
-    flow_graph = [[0] * len(adjacent) for _ in range(len(adjacent))]
+def dfs(u: int, pushed: int, sink: int, ptr: list[int], level: list[int], capacity: list[list[int]], flow: list[list[int]]) -> int:
+    if u == sink or pushed == 0:
+        return pushed
 
-    parent = bfs(capacity_graph, flow_graph, adjacent, source, sink)
+    while ptr[u] < len(flow):
+        v = ptr[u]
 
-    while parent != []:
-        path = list()
-        current = sink
-        flow = float("inf")
+        if level[u] + 1 == level[v]:
+            delta = dfs(v, min(pushed, capacity[u][v] - flow[u][v]), sink, ptr, level, capacity, flow)
 
-        while current != source:
-            previous = parent[current]
-            flow = min(flow, capacity_graph[previous][current] - flow_graph[previous][current])
-            path.append((previous, current))
-            current = previous
+            if delta > 0:
+                flow[u][v] += delta
+                flow[v][u] -= delta
+                return delta
 
-        for u, v in path:
-            flow_graph[u][v] += flow
-            flow_graph[v][u] -= flow
-        
-        parent = bfs(capacity_graph, flow_graph, adjacent, source, sink)
+        ptr[u] += 1    
+    
+    return 0
 
-    return flow_graph
+def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
+    capacity = [u[:] for u in graph]
+    flow = [[0] * len(adjacent) for _ in range(len(adjacent))]
+
+    level = bfs(source, capacity, flow, adjacent)
+
+    while level[sink] != -1:
+        ptr = [0] * len(adjacent)
+
+        while dfs(source, 10**8, sink, ptr, level, capacity, flow) > 0:
+            pass
+
+        level = bfs(source, capacity, flow, adjacent)
+
+    return flow
 
 if __name__ == "__main__":
     output = list()
@@ -165,7 +170,7 @@ if __name__ == "__main__":
 
             current_node += 1
 
-        flow_graph = edmonds_karp(graph, adjacent, source, sink)
+        flow_graph = dinic(graph, adjacent, source, sink)
 
         flow = sum(flow_graph[source][i] for i in range(n))
 
