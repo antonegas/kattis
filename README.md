@@ -96,7 +96,7 @@
 - [ ] Single source shortest path, negative weights
 - [x] All Pairs Shortest Path
 - [x] Minimum Spanning Tree
-- [ ] Maximum Flow
+- [x] Maximum Flow
 - [ ] Minimum Cut
 - [ ] Minimum Cost Maximum Flow
 - [ ] Eulerian Path
