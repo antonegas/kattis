@@ -199,7 +199,7 @@ if __name__ == "__main__":
 
     flow_graph = dinic(graph, adjacent, s, t)
 
-    flow = sum(flow_graph[s][i] for i in range(n))
+    flow = sum(flow_graph[s])
     used_edges = [(u, v, flow_graph[u][v]) for u, v in edges if flow_graph[u][v] > 0]
 
     output.append(f"{n} {flow} {len(used_edges)}")
