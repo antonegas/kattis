@@ -123,6 +123,11 @@ out:
 from collections import deque
 
 def bfs(source: int, capacity: list[list[int]], flow: list[list[int]], adjacent: list[list[int]]) -> list[int]:
+    """
+    Finds the level for every node in the graph. Where the level of a node being the minimum number of edges with 
+    available capacity needed to reach the node.
+    """
+
     level = [-1] * len(adjacent)
     level[source] = 0
 
@@ -141,12 +146,18 @@ def bfs(source: int, capacity: list[list[int]], flow: list[list[int]], adjacent:
     return level
 
 def dfs(u: int, pushed: int, sink: int, ptr: list[int], level: list[int], capacity: list[list[int]], flow: list[list[int]]) -> int:
+    """
+    
+    """
+
+    # Terminate if the sink node has been reached or if this is a blocking path.
     if u == sink or pushed == 0:
         return pushed
 
     while ptr[u] < len(flow):
         v = ptr[u]
 
+        # TODO:
         if level[u] + 1 == level[v]:
             delta = dfs(v, min(pushed, capacity[u][v] - flow[u][v]), sink, ptr, level, capacity, flow)
 
@@ -160,11 +171,36 @@ def dfs(u: int, pushed: int, sink: int, ptr: list[int], level: list[int], capaci
     return 0
 
 def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
+    """
+    Given a graph of capacities, a source and a sink node, finds the flow graph which gives the maximum 
+    flow in the graph.
+
+    algorithm: XXX
+    time complexity: O(|V|^2*|E|)
+    where:
+    - |V| is the number of vertices.
+    - |E| is the number of edges.
+    why:
+    - O(|V|) from there being at most |V| phases of the algorithm.
+    - 
+    reference: https://cp-algorithms.com/graph/dinic.html#implementation
+
+    parameters:
+    - graph: a matrix of nodes in the graph where graph[u][v] gives the capacity of the edge from u to v.
+    - adjacent: a list of lists where adjacent[u] gives the list of all edges from u.
+    - source: the index of the source node in the graph.
+    - sink: the index of the sink node in the graph.
+    returns:
+    - A graph with the maximum flows through every edge in the graph.
+    """
+
     capacity = [u[:] for u in graph]
     flow = [[0] * len(adjacent) for _ in range(len(adjacent))]
 
     level = bfs(source, capacity, flow, adjacent)
 
+    # Keep looking for a blocking flow as long as there exists a non-blocking path from the source node 
+    # to the sink node.
     while level[sink] != -1:
         ptr = [0] * len(adjacent)
 
