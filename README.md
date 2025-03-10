@@ -38,7 +38,7 @@
 
 ## Exercise 7
 - [x] Get Shorty
-- [ ] Hiding Places
+- [x] Hiding Places
 - [ ] XYZZY
 - [ ] Risk
 
