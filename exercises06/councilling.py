@@ -101,86 +101,73 @@ if __name__ == "__main__":
     while len(lines) > index:
         n = int(lines[index])
         index += 1
-        clubs = set()
-        residents = dict()
-        parties = defaultdict(lambda: list())
-
-        for _ in range(n):
-            resident, club, _, *member_clubs = lines[index].split(" ")
-            clubs = clubs.union(set(member_clubs))
-            residents[resident] = member_clubs
-            parties[club].append(resident)
-            
-            index += 1
-
-        party_out_capacity = ceil(len(clubs) / 2) - 1
-        n = 2 + len(clubs) + len(residents) + len(parties)
 
         club_nodes = dict()
         resident_nodes = dict()
         party_nodes = dict()
 
+        edges = list()
+        club_resident_edges = list()
+
         source = 0
-        sink = n - 1
-        current_node = 1
-        
-        graph = [[0] * n for _ in range(n)]
-        adjacent = [list() for _ in range(n)]
-        person_party_edges = list()
+        sink = 1
+        total_nodes = 2
 
-        for club in clubs:
-            club_nodes[club] = current_node
+        for _ in range(n):
+            resident, party, _, *clubs = lines[index].split(" ")
 
-            graph[source][current_node] = 1
-            adjacent[source].append(current_node)
-            adjacent[current_node].append(source)
+            if resident not in resident_nodes:
+                resident_nodes[resident] = total_nodes
+                total_nodes += 1
 
-            current_node += 1
+            if party not in party_nodes:
+                party_nodes[party] = total_nodes
+                total_nodes += 1
 
-        for resident in residents:
-            resident_nodes[resident] = current_node
+            resident_party_edge = (resident_nodes[resident], party_nodes[party], 1)
+            edges.append(resident_party_edge)
 
-            for club in residents[resident]:
-                club_node = club_nodes[club]
+            for club in clubs:
+                if club not in club_nodes:
+                    club_nodes[club] = total_nodes
+                    total_nodes += 1
+                
+                club_resident_edge = (club_nodes[club], resident_nodes[resident])
+                edges.append(club_resident_edge + (1,))
+                club_resident_edges.append(club_resident_edge + (club, resident,))
 
-                graph[club_node][current_node] = 1
+            index += 1
 
-                person_party_edges.append((club_node, current_node, resident, club))
+        party_limit = (len(club_nodes) - 1) // 2
 
-                adjacent[club_node].append(current_node)
-                adjacent[current_node].append(club_node)
+        for party_node in party_nodes.values():
+            party_sink_edge = (party_node, sink, party_limit)
+            edges.append(party_sink_edge)
 
-            current_node += 1
+        for club_node in club_nodes.values():
+            source_club_edge = (source, club_node, 1)
+            edges.append(source_club_edge)
 
-        for club in parties:
-            party_nodes[club] = current_node
+        graph = [[0] * total_nodes for _ in range(total_nodes)]
+        adjacent = [list() for _ in range(total_nodes)]
 
-            for resident in parties[club]:
-                resident_node = resident_nodes[resident]
-
-                graph[resident_node][current_node] = 1
-
-                adjacent[resident_node].append(current_node)
-                adjacent[current_node].append(resident_node)
-
-            graph[current_node][sink] = party_out_capacity
-
-            adjacent[current_node].append(sink)
-            adjacent[sink].append(current_node)
-
-            current_node += 1
+        for u, v, capacity in edges:
+            if graph[u][v] == 0 and graph[v][u] == 0:
+                adjacent[u].append(v)
+                adjacent[v].append(u)
+            graph[u][v] += capacity
 
         flow_graph = dinic(graph, adjacent, source, sink)
 
-        flow = sum(flow_graph[source][i] for i in range(n))
+        flow = sum(flow_graph[source])
 
-        if flow < len(clubs):
+        if flow != len(club_nodes):
             output.append("Impossible.")
             output.append("")
             continue
 
-        for resident_node, party_node, resident, club in person_party_edges:
-            if flow_graph[resident_node][party_node] == 1:
+        for u, v, club, resident in club_resident_edges:
+            if flow_graph[u][v] > 0:
                 output.append(f"{resident} {club}")
 
         output.append("")
