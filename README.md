@@ -37,7 +37,7 @@
 - [ ] Councilling
 
 ## Exercise 7
-- [ ] Get Shorty
+- [x] Get Shorty
 - [ ] Hiding Places
 - [ ] XYZZY
 - [ ] Risk
