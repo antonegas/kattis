@@ -57,12 +57,7 @@ def floyd_warshall(original: list[list[float]]) -> list[list[float]]:
                 # Update the shortest path from i to j if going through k results in a lower weight.
                 graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])
 
-    # Detect if there exists negative cycles by running the algorithm again and seeing if it 
-    # results in shorter paths.
-    for k in range(len(graph)):
-        for i in range(len(graph)):
-            for j in range(len(graph)):
-                # If going through k results in a shorter distance there is a negative cycle.
+                # If going through k again results in a shorter distance there is a negative cycle.
                 if graph[i][j] > graph[i][k] + graph[k][j]:
                     graph[i][j] = float("-inf")
 
