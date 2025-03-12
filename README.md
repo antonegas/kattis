@@ -97,7 +97,7 @@
 - [x] All Pairs Shortest Path
 - [x] Minimum Spanning Tree
 - [x] Maximum Flow
-- [ ] Minimum Cut
+- [x] Minimum Cut
 - [ ] Minimum Cost Maximum Flow
 - [ ] Eulerian Path
 
