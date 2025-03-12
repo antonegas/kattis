@@ -124,8 +124,8 @@ from collections import deque
 
 def bfs(source: int, capacity: list[list[int]], flow: list[list[int]], adjacent: list[list[int]]) -> list[int]:
     """
-    Finds the level for every node in the graph. Where the level of a node being the minimum number of edges with 
-    available capacity needed to reach the node.
+    Finds the level for every vertex in the graph. Where the level of a vertex being the minimum number of edges with 
+    available capacity needed to reach the vertex.
     """
 
     level = [-1] * len(adjacent)
@@ -150,7 +150,7 @@ def dfs(u: int, pushed: int, sink: int, ptr: list[int], level: list[int], capaci
     
     """
 
-    # Terminate if the sink node has been reached or if this is a blocking path.
+    # Terminate if the sink vertex has been reached or if this is a blocking path.
     if u == sink or pushed == 0:
         return pushed
 
@@ -172,7 +172,7 @@ def dfs(u: int, pushed: int, sink: int, ptr: list[int], level: list[int], capaci
 
 def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
     """
-    Given a graph of capacities, a source and a sink node, finds the flow graph which gives the maximum 
+    Given a graph of capacities, a source and a sink vertex, finds the flow graph which gives the maximum 
     flow in the graph.
 
     algorithm: XXX
@@ -186,10 +186,11 @@ def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: 
     reference: https://cp-algorithms.com/graph/dinic.html#implementation
 
     parameters:
-    - graph: a matrix of nodes in the graph where graph[u][v] gives the capacity of the edge from u to v.
-    - adjacent: a list of lists where adjacent[u] gives the list of all edges from u.
-    - source: the index of the source node in the graph.
-    - sink: the index of the sink node in the graph.
+    - graph: a matrix of vertices in the graph where graph[u][v] gives the capacity of the edge from u to v.
+    - adjacent: a list of lists where adjacent[u] gives the list of all edges from u, if adjacent[u] contains 
+    v then adjacent[v] should contain u.
+    - source: the index of the source vertex in the graph.
+    - sink: the index of the sink vertex in the graph.
     returns:
     - A graph with the maximum flows through every edge in the graph.
     """
@@ -199,8 +200,8 @@ def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: 
 
     level = bfs(source, capacity, flow, adjacent)
 
-    # Keep looking for a blocking flow as long as there exists a non-blocking path from the source node 
-    # to the sink node.
+    # Keep looking for a blocking flow as long as there exists a non-blocking path from the source vertex 
+    # to the sink vertex.
     while level[sink] != -1:
         ptr = [0] * len(adjacent)
 
