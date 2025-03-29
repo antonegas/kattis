@@ -99,7 +99,7 @@
 - [x] Maximum Flow
 - [x] Minimum Cut
 - [ ] Minimum Cost Maximum Flow
-- [ ] Eulerian Path
+- [x] Eulerian Path
 
 ## Lab 3
 - [ ] String Matching
