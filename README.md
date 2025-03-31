@@ -137,3 +137,11 @@
 - [ ] Movie Collection
 - [ ] Walrus Weights
 - [x] Rational Ratio
+
+## Session 2:
+- [ ] Bicikli
+- [x] Subway
+- [x] Landline Telephone Network
+- [ ] Antenna Placement
+- [ ] Watersheds
+- [x] Arbitrage?
