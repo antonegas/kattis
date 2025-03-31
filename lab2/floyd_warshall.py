@@ -53,6 +53,11 @@ def floyd_warshall(original: list[list[float]]) -> list[list[float]]:
     # Find the shortest paths from each node to every other node.
     for k in range(len(graph)):
         for i in range(len(graph)):
+            # If there is no path from i to k there is no need to to check if going through k 
+            # results in a shorter path.
+            if graph[i][k] == float("inf"):
+                continue
+
             for j in range(len(graph)):
                 # Update the shortest path from i to j if going through k results in a lower weight.
                 graph[i][j] = min(graph[i][j], graph[i][k] + graph[k][j])
