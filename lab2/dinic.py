@@ -175,7 +175,7 @@ def dfs(u: int, pushed: int, sink: int, edge_pointers: list[int], level: list[in
     
     return 0
 
-def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
+def dinic(capacity: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
     """
     Given a graph of capacities, a source and a sink vertex, finds the flow graph which gives the maximum 
     flow in the graph.
@@ -197,7 +197,7 @@ def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: 
     reference: https://cp-algorithms.com/graph/dinic.html#implementation
 
     parameters:
-    - graph: a matrix of vertices in the graph where graph[u][v] gives the capacity of the edge from u to v.
+    - capacity: a matrix of vertices in the graph where capacity[u][v] gives the capacity of the edge from u to v.
     - adjacent: a list of lists where adjacent[u] gives the list of all edges from u, if adjacent[u] contains 
     v then adjacent[v] should contain u.
     - source: the index of the source vertex in the graph.
@@ -206,7 +206,6 @@ def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: 
     - A graph with the maximum flows through every edge in the graph.
     """
 
-    capacity = [u[:] for u in graph]
     flow = [[0] * len(adjacent) for _ in range(len(adjacent))]
 
     # Find a level graph for the graph.
