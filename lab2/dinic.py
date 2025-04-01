@@ -145,28 +145,33 @@ def bfs(source: int, capacity: list[list[int]], flow: list[list[int]], adjacent:
 
     return level
 
-def dfs(u: int, pushed: int, sink: int, ptr: list[int], level: list[int], capacity: list[list[int]], flow: list[list[int]]) -> int:
+def dfs(u: int, pushed: int, sink: int, edge_pointers: list[int], level: list[int], capacity: list[list[int]], flow: list[list[int]]) -> int:
     """
-    
+    Finds a blocking flow for a vertex, if the vertex isn't already blocked. A flow is blocking if 
+    it blocks atleast one of the following edges in the level graph. A edge is blocked if its flow is 
+    maximal for the level graph. A vertex is blocked all its outgoing edges in the level graph is blocked.
     """
 
     # Terminate if the sink vertex has been reached or if this is a blocking path.
     if u == sink or pushed == 0:
         return pushed
 
-    while ptr[u] < len(flow):
-        v = ptr[u]
+    while edge_pointers[u] < len(flow):
+        v = edge_pointers[u]
 
-        # TODO:
+        # The only valid edges are edges which are one level above the current one.
         if level[u] + 1 == level[v]:
-            delta = dfs(v, min(pushed, capacity[u][v] - flow[u][v]), sink, ptr, level, capacity, flow)
+            delta = dfs(v, min(pushed, capacity[u][v] - flow[u][v]), sink, edge_pointers, level, capacity, flow)
 
+            # If delta for the edge is not zero the edge wasn't already blocked.
             if delta > 0:
                 flow[u][v] += delta
                 flow[v][u] -= delta
                 return delta
 
-        ptr[u] += 1    
+        # If there wasn't an edge between u and v or if the edge already had a blocking flow check 
+        # the next vertex. 
+        edge_pointers[u] += 1
     
     return 0
 
@@ -175,14 +180,20 @@ def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: 
     Given a graph of capacities, a source and a sink vertex, finds the flow graph which gives the maximum 
     flow in the graph.
 
-    algorithm: XXX
+    algorithm: The algorithm used is Dinitz. It works by constructing a directed acyclic graph called a 
+    level graph using breadth first search. It then finds blocking flows through this level graph. 
+    These two steps are then repeated until there is no path in the level graph from the source vertex 
+    to the sink vertex and a maximum flow has been found.
     time complexity: O(|V|^2*|E|)
     where:
     - |V| is the number of vertices.
     - |E| is the number of edges.
     why:
     - O(|V|) from there being at most |V| phases of the algorithm.
-    - 
+    - O(|E|) from the breadth first search.
+    - O(|V|*|E|) from the depth first search.
+    - O(|E|) from updating the flow each edge.
+    - O(|V|*(|E|+|V|*|E|+|E|)) = O(|V|^2*|E|)
     reference: https://cp-algorithms.com/graph/dinic.html#implementation
 
     parameters:
@@ -198,16 +209,19 @@ def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: 
     capacity = [u[:] for u in graph]
     flow = [[0] * len(adjacent) for _ in range(len(adjacent))]
 
+    # Find a level graph for the graph.
     level = bfs(source, capacity, flow, adjacent)
 
-    # Keep looking for a blocking flow as long as there exists a non-blocking path from the source vertex 
-    # to the sink vertex.
+    # Keep looking for blocking flows as long as there is a non-blocked path to the sink vertex.
     while level[sink] != -1:
-        ptr = [0] * len(adjacent)
+        edge_pointers = [0] * len(adjacent)
 
-        while dfs(source, 10**8, sink, ptr, level, capacity, flow) > 0:
+        # Start from the source vertex assuming that the maximum possible flow can be pushed into it.
+        # Repeat this until there no longer is a blocking flow for the level graph.
+        while dfs(source, 10**8, sink, edge_pointers, level, capacity, flow) > 0:
             pass
 
+        # Find a new level graph in the graph based on the updated edge flows.
         level = bfs(source, capacity, flow, adjacent)
 
     return flow
