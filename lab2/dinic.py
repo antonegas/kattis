@@ -160,7 +160,7 @@ def dfs(u: int, pushed: int, sink: int, edge_pointers: list[int], level: list[in
         v = edge_pointers[u]
 
         # The only valid edges are edges which are one level above the current one.
-        if level[u] + 1 == level[v]:
+        if level[u] + 1 == level[v] and capacity[u][v] - flow[u][v] > 0:
             delta = dfs(v, min(pushed, capacity[u][v] - flow[u][v]), sink, edge_pointers, level, capacity, flow)
 
             # If delta for the edge is not zero the edge wasn't already blocked.
