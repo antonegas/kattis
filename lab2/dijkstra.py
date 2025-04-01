@@ -64,23 +64,23 @@ def dijkstra(adjacent: list[list[tuple[int, int]]], source: int) -> tuple[list[f
     queue = [(0, source, -1)]
 
     while queue:
-        cost, vertex, previous_vertex = heappop(queue)
+        cost, u, previous_vertex = heappop(queue)
 
         # If the vertex has already been visited it can be ignored. If it has not been visited it means that the 
         # shortest distance to the reach it has been found and that its previous vertex can be set. The vertex is then 
         # marked as visited.
-        if visited[vertex]:
+        if visited[u]:
             continue
 
-        costs[vertex] = cost
-        previous[vertex] = previous_vertex
-        visited[vertex] = True
+        costs[u] = cost
+        previous[u] = previous_vertex
+        visited[u] = True
 
         # Add adjacent vertices to the queue with the cost set to the cost of reaching the the current vertex plus 
         # the cost of the connecting edge and the previous vertex set to the current vertex.
-        for adjacent_vertex, edge_cost in adjacent[vertex]:
+        for v, edge_cost in adjacent[u]:
             adjacent_cost = cost + edge_cost
-            heappush(queue, (adjacent_cost, adjacent_vertex, vertex))
+            heappush(queue, (adjacent_cost, v, u))
 
     return costs, previous
 
