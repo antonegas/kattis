@@ -157,7 +157,7 @@ def edmonds_karp(graph: list[list[int]], adjacent: list[list[int]], source: int,
     this path. For every edge along this path the capacity of the edge is decreased 
     by the flow and the capacity of the back-edge is increased by the flow. 
     This is repeated until there no longer exists such a path.
-    time complexity: O(|V||E|^2)
+    time complexity: O(|V|*|E|^2)
     where:
     - |V| is the number of vertices.
     - |E| is the number of edges.
