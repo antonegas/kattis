@@ -26,7 +26,7 @@ Impossible
 
 from collections import deque
 
-def bfs(adjacent: list[list[int]], costs: list[float], source: int):
+def bfs(adjacent: list[list[tuple[int, int]]], costs: list[float], source: int):
     """
     Propagates -infinity to all vertices reachable from a negative cycle.
     """
@@ -46,7 +46,7 @@ def bfs(adjacent: list[list[int]], costs: list[float], source: int):
 
             queue.append(v)
 
-def spfa(adjacent: list[list[int]], source: int) -> tuple[list[float], list[int]]:
+def spfa(adjacent: list[list[tuple[int, int]]], source: int) -> tuple[list[float], list[int]]:
     """
     Given a graph with edges which may have negative weights, finds the shortest paths from a 
     source node to all other nodes.
