@@ -20,6 +20,14 @@ vvuetetun
 out:
 11
 
+testcase 3:
+in:
+1
+evilstrawwartslive
+
+out:
+0
+
 """
 
 def evil_straw(word: str):
