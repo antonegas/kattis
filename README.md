@@ -43,7 +43,7 @@
 - [ ] Risk
 
 ## Exercise 8
-- [ ] Evil Straw Warts Live
+- [x] Evil Straw Warts Live
 - [ ] Dictionary Attack
 - [ ] Dominant Strings
 - [ ] Intellectual Property
