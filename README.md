@@ -44,7 +44,7 @@
 
 ## Exercise 8
 - [x] Evil Straw Warts Live
-- [ ] Dictionary Attack
+- [x] Dictionary Attack
 - [ ] Dominant Strings
 - [ ] Intellectual Property
 
