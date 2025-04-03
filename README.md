@@ -102,7 +102,7 @@
 - [x] Eulerian Path
 
 ## Lab 3
-- [ ] String Matching
+- [x] String Matching
 - [ ] Suffix Sorting
 - [ ] Longest Common Prefix
 - [ ] Rational Arithmetic
