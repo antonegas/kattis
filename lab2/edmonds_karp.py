@@ -151,7 +151,7 @@ def edmonds_karp(graph: list[list[int]], adjacent: list[list[int]], source: int,
     """
     Given a capacity graph, a source and a sink, gives the flow graph.
 
-    algorithm: The algorithm used Edmonds-Karp. The algorithm works by running 
+    algorithm: The algorithm used is Edmonds-Karp. The algorithm works by running 
     breadth first search to find the shortest augmented path from the source to 
     the sink. The flow of this path is the minimum capacity of the edges along 
     this path. For every edge along this path the capacity of the edge is decreased 
