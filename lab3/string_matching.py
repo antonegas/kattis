@@ -70,7 +70,7 @@ def find_string(pattern: str, text: str):
 
     matches = list()
 
-    prefix_function = get_prefix_function(f"{pattern}*{text}")
+    prefix_function = get_prefix_function(f"{pattern}{chr(0)}{text}")
 
     for i in range(len(pattern) + 1, len(pattern) + len(text) + 1):
         if prefix_function[i] == len(pattern):
