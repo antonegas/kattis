@@ -110,7 +110,7 @@ def fenwick_range(tree: list[int], start: int, end: int):
     returns:
     - The sum of the numbers in the given range.
     """
-    return  fenwick_sum(tree, end) - fenwick_sum(tree, start)
+    return fenwick_sum(tree, end) - fenwick_sum(tree, start)
 
 def fenwick_create(n: int):
     """
