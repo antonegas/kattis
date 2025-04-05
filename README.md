@@ -103,7 +103,7 @@
 
 ## Lab 3
 - [x] String Matching
-- [ ] Suffix Sorting
+- [x] Suffix Sorting
 - [ ] Longest Common Prefix
 - [ ] Rational Arithmetic
 - [ ] Modular Arithmetic
