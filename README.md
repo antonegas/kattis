@@ -104,7 +104,7 @@
 ## Lab 3
 - [x] String Matching
 - [x] Suffix Sorting
-- [ ] Longest Common Prefix
+- [x] Longest Common Prefix (Dvaput)
 - [ ] Rational Arithmetic
 - [ ] Modular Arithmetic
 - [ ] Chinese Remainder
