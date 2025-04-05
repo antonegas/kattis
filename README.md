@@ -105,7 +105,7 @@
 - [x] String Matching
 - [x] Suffix Sorting
 - [x] Longest Common Prefix (Dvaput)
-- [ ] Rational Arithmetic
+- [x] Rational Arithmetic
 - [ ] Modular Arithmetic
 - [ ] Chinese Remainder
 - [ ] Chinese Remainder Theorem (non-relatively prime moduli)
