@@ -100,7 +100,7 @@ def create_suffix_array(string: str) -> list[int]:
 
     return permutation[1:]
 
-def create_lcp(string: str, suffix_array: list[int]) -> list[int]:
+def create_lcp_array(string: str, suffix_array: list[int]) -> list[int]:
     """
     Given a string and a suffix array for that string creates a longest common prefix array for that string. 
 
@@ -143,11 +143,10 @@ def create_lcp(string: str, suffix_array: list[int]) -> list[int]:
 
     return lcp
 
-
 if __name__ == "__main__":
     string = open(0, "r").read().strip()
 
     suffix_array = create_suffix_array(string)
-    lcp_array = create_lcp(string, suffix_array)
+    lcp_array = create_lcp_array(string, suffix_array)
 
     open(1, "w").write(str(max(lcp_array)))
