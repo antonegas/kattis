@@ -51,7 +51,7 @@
 ## Exercise 9
 - [ ] Suffix Array Re-construction
 - [ ] Code Theft
-- [ ] Messages from Outer Space
+- [x] Messages from Outer Space
 - [ ] Life Forms
 
 ## Exercise 10
