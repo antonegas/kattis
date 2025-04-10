@@ -49,7 +49,7 @@
 - [ ] Intellectual Property
 
 ## Exercise 9
-- [ ] Suffix Array Re-construction
+- [x] Suffix Array Re-construction
 - [ ] Code Theft
 - [x] Messages from Outer Space
 - [ ] Life Forms
