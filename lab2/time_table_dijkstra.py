@@ -28,6 +28,17 @@ Impossible
 
 from heapq import heappop, heappush
 
+def get_path(previous: list[int], target: int) -> list[int]:
+    """
+    Given a previous list and a target, gives a shortest path from the source to the target.
+    """
+    path = [target]
+
+    while previous[path[-1]] != -1:
+        path.append(previous[path[-1]])
+
+    return [*reversed(path)]
+
 def time_table_dijkstra(timetable: list[list[tuple[int, int, int, int]]], source: int) -> tuple[list[float], list[int]]:
     """
     Finds the shortest path from a source vertex to every other vertex in a graph.

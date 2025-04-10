@@ -26,6 +26,17 @@ Impossible
 
 from collections import deque
 
+def get_path(previous: list[int], target: int) -> list[int]:
+    """
+    Given a previous list and a target, gives a shortest path from the source to the target.
+    """
+    path = [target]
+
+    while previous[path[-1]] != -1:
+        path.append(previous[path[-1]])
+
+    return [*reversed(path)]
+
 def bfs(adjacent: list[list[tuple[int, int]]], costs: list[float], source: int):
     """
     Propagates -infinity to all vertices reachable from a negative cycle.

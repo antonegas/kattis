@@ -27,6 +27,17 @@ Impossible
 
 from heapq import heappop, heappush
 
+def get_path(previous: list[int], target: int) -> list[int]:
+    """
+    Given a previous list and a target, gives a shortest path from the source to the target.
+    """
+    path = [target]
+
+    while previous[path[-1]] != -1:
+        path.append(previous[path[-1]])
+
+    return [*reversed(path)]
+
 def dijkstra(adjacent: list[list[tuple[int, int]]], source: int) -> tuple[list[float], list[int]]:
     """
     Finds the shortest path from a source vertex to every other vertex in a graph.
@@ -35,13 +46,15 @@ def dijkstra(adjacent: list[list[tuple[int, int]]], source: int) -> tuple[list[f
     vertices to a priotiy queue where they are ordered by the cost of the connecting edge and the 
     cost of reaching the vertex. After each iteration the top vertex of the priority queue is removed 
     and the cheapest path to the vertex has been found.
-    time complexity: O(|E| + |V|*log|V|)
+    time complexity: O(|E|*log|E|)
     where:
     - |E| is the number of edges.
     - |V| is the number of vertices.
     why:
     - O(|E|) from checking every edge.
-    - O(|V|*log|V|) from the priority queue.
+    - O(|V|) from checking every vertex.
+    - O(log|E|) from the priority queue.
+    - O((|V|+|E|)*log|E|) = O(|E|*log|E|)
     reference: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Pseudocode
 
     parameters:
