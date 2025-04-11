@@ -136,7 +136,15 @@ def rational_not_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
 
     return a_numerator * b_denominator != b_numerator * a_demoninator
 
-def rational_string(rational: tuple[int, int]) -> str:
+def rational_from_string(string: str) -> tuple[int, int]:
+    """
+    Converts a string representation of a rational number to a rational number.
+    """
+    numerator, denominator = map(int, string.split(" / "))
+
+    return rational_create(numerator, denominator)
+
+def rational_to_string(rational: tuple[int, int]) -> str:
     """
     Converts a rational number to a string representation.
     """
@@ -163,6 +171,6 @@ if __name__ == "__main__":
             case "/":
                 c = rational_divide(a, b)
 
-        output.append(rational_string(c))
+        output.append(rational_to_string(c))
 
     open(1, "w").write("\n".join(output))
