@@ -58,32 +58,20 @@ aaaa
 
 """
 
-def pad_suffix(suffix: str, length: int, target: int):
-    padded_suffix = suffix
-
-    if "*" in suffix:
-        part1, part2 = suffix.split("*")
-        padded_suffix = part1 + "*" * (length + 1 - len(suffix)) + part2
-    
-    return padded_suffix.rjust(target, "*")
-
 def reconstruction(suffixes: list[tuple[str, int]], target: int):
-    padded_suffixes = list()
-
-    for suffix, length in suffixes:
-        padded_suffix = pad_suffix(suffix, length, target)
-        padded_suffixes.append(padded_suffix)
-
     reconstructed_string = ["*"] * target
 
-    for padded_suffix in padded_suffixes:
-        for i in range(target):
-            if padded_suffix[i] == "*":
+    for suffix, position in suffixes:
+        offset = position
+
+        for i in range(len(suffix)):
+            if suffix[i] == "*":
+                offset += target - position - len(suffix)
                 continue
 
-            if reconstructed_string[i] == "*":
-                reconstructed_string[i] = padded_suffix[i]
-            elif reconstructed_string[i] != padded_suffix[i]:
+            if reconstructed_string[i + offset] == "*":
+                reconstructed_string[i + offset] = suffix[i]
+            elif reconstructed_string[i + offset] != suffix[i]:
                 return "IMPOSSIBLE"
             
     if "*" in reconstructed_string:
@@ -107,7 +95,7 @@ if __name__ == "__main__":
         for _ in range(s):
             i, suffix = lines[index].split(" ")
 
-            suffixes.append((suffix, l + 1 - int(i)))
+            suffixes.append((suffix, int(i) - 1))
 
             index += 1
 
