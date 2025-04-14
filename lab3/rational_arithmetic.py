@@ -16,7 +16,25 @@ out:
 
 """
 
-from math import gcd
+def _gcd(a: int, b: int) -> int:
+    """
+    Calculates the greatest common divisor for two numbers.
+    Reference: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
+    """
+    old_r = a
+    r = b
+    old_s = 1
+    s = 0
+    old_t = 0
+    t = 1
+
+    while r != 0:
+        quotient = old_r // r
+        old_r, r = r, old_r - quotient * r
+        old_s, s = s, old_s - quotient * s
+        old_t, t = t, old_t - quotient * t
+
+    return abs(old_r)
 
 def rational_create(numerator: int, denominator: int) -> tuple[int, int]:
     """
@@ -25,7 +43,7 @@ def rational_create(numerator: int, denominator: int) -> tuple[int, int]:
     if denominator == 0:
         raise ZeroDivisionError
     
-    common_divisor = gcd(numerator, denominator)
+    common_divisor = _gcd(numerator, denominator)
 
     if numerator < 0 and denominator < 0:
         return (-numerator // common_divisor, -denominator // common_divisor)
