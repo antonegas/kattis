@@ -107,7 +107,7 @@
 - [x] Longest Common Prefix (Dvaput)
 - [x] Rational Arithmetic
 - [x] Modular Arithmetic
-- [ ] Chinese Remainder
+- [x] Chinese Remainder
 - [ ] Chinese Remainder Theorem (non-relatively prime moduli)
 - [ ] Prime Sieve
 
