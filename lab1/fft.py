@@ -67,6 +67,7 @@ def fft_helper(a: list[complex], inverse: bool) -> list[complex]:
     a0 = fft_helper(a[::2], inverse)
     a1 = fft_helper(a[1::2], inverse)
 
+    # Determine the incrementing angle for the transform.
     angle = 2 * pi / len(a)
     if inverse:
         angle = -angle
@@ -76,6 +77,7 @@ def fft_helper(a: list[complex], inverse: bool) -> list[complex]:
 
     result = a
 
+    # Calculate the fourier/inverse fourier transform.
     for a0_i, a1_i, i in zip(a0, a1, range(len(a0))):
         result[i] = a0_i + w * a1_i
         result[i + len(a) // 2] = a0_i - w * a1_i
