@@ -60,9 +60,6 @@ def sieve_of_eratosthenes(n: int) -> tuple[bytearray, int]:
         if get_bit(prime_array, i):
             count += 1
 
-            if i * i > n:
-                continue
-
             for j in range(i**2, n + 1, i):
                 clear_bit(prime_array, j)
 
