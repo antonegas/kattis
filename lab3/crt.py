@@ -24,52 +24,6 @@ no solution
 
 """
 
-def modular_inverse(a: int, b: int) -> int:
-    """
-    Calculates the modular inverse of a for the divisor n. Gives -1 if there is no modular inverse.
-    Reference: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
-    """
-    old_r = a
-    r = b
-    old_s = 1
-    s = 0
-    old_t = 0
-    t = 1
-
-    while r != 0:
-        quotient = old_r // r
-        old_r, r = r, old_r - quotient * r
-        old_s, s = s, old_s - quotient * s
-        old_t, t = t, old_t - quotient * t
-
-    if old_r != 1:
-        return -1
-
-    return old_s % b
-
-def modular_add(a: int, b: int, n: int) -> int:
-    """
-    Calculates the sum of two numbers modolo n.
-    """
-    return (a + b) % n
-
-def modular_subtract(a: int, b: int, n: int) -> int:
-    """
-    Calculates the difference between two numbers modolo n.
-    """
-    return (a - b) % n
-
-def modular_multiply(a: int, b: int, n: int) -> int:
-    return (a * b) % n
-
-def modular_divide(a: int, b: int, n: int) -> int:
-    b_inverse = modular_inverse(b, n)
-
-    if b_inverse == -1:
-        return -1
-    
-    return (a * b_inverse) % n
-
 def extended_euclidean(a: int, b: int) -> tuple[int, int, int]:
     """
     The extended Euclidean algorithm to get greatest common divisor and the Bézout coefficients.
