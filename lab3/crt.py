@@ -121,7 +121,7 @@ def crt(congruences: list[tuple[int, int]]) -> tuple[int, int]:
         
         M = m * n // g
 
-        x = (((a * v * n) + (b * u * m)) // g) % M
+        x = ((a * v * n) + (b * u * m)) // g % M
 
         result = (x, M)
 
