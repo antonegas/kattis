@@ -25,6 +25,10 @@ no solution
 """
 
 def modular_inverse(a: int, b: int) -> int:
+    """
+    Calculates the modular inverse of a for the divisor n. Gives -1 if there is no modular inverse.
+    Reference: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
+    """
     old_r = a
     r = b
     old_s = 1
@@ -43,36 +47,85 @@ def modular_inverse(a: int, b: int) -> int:
 
     return old_s % b
 
+def modular_add(a: int, b: int, n: int) -> int:
+    """
+    Calculates the sum of two numbers modolo n.
+    """
+    return (a + b) % n
+
+def modular_subtract(a: int, b: int, n: int) -> int:
+    """
+    Calculates the difference between two numbers modolo n.
+    """
+    return (a - b) % n
+
+def modular_multiply(a: int, b: int, n: int) -> int:
+    return (a * b) % n
+
+def modular_divide(a: int, b: int, n: int) -> int:
+    b_inverse = modular_inverse(b, n)
+
+    if b_inverse == -1:
+        return -1
+    
+    return (a * b_inverse) % n
+
+def extended_euclidean(a: int, b: int) -> tuple[int, int, int]:
+    """
+    The extended Euclidean algorithm to get greatest common divisor and the Bézout coefficients.
+    Reference: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
+    """
+    old_r = a
+    r = b
+    old_s = 1
+    s = 0
+    old_t = 0
+    t = 1
+
+    while r != 0:
+        quotient = old_r // r
+        old_r, r = r, old_r - quotient * r
+        old_s, s = s, old_s - quotient * s
+        old_t, t = t, old_t - quotient * t
+
+    return old_r, old_t, old_s
+
 def crt(congruences: list[tuple[int, int]]) -> tuple[int, int]:
     """
-    Given a list of congruences (a_i % n_i) finds a solution a, which satisfies all congruences if one such exists.
+    Given a list of congruences (a_i % n_i), where all n_i are relative primes, finds a 
+    solution which satisfies all the equations.
 
     algorithm: The algorithm used is the Chinese remainder theorem. XXX
     time complexity: O(XXX)
     where:
-    - n is the 
+    - n is the XXX
     why:
     - XXX
-    reference: https://cp-algorithms.com/algebra/chinese-remainder-theorem.html#implementation
+    reference: https://en.wikipedia.org/wiki/Chinese_remainder_theorem#Generalization_to_non-coprime_moduli
 
     parameters:
-    - congruences: a list of congruences one the form (a, n)
+    - congruences: a list of congruences one the form (a, n).
     returns:
-    - If there is a solution: the integer a which satisfies all congruences and the product of all n_i.
-    - If there is no solution: negative one and zero.
+    - The integer a which satisfies all congruences and the product of all n_i / gcd(all n_i).
     """
-    
-    N = 1
 
-    for _, n in congruences:
-        N = N * n
+    result = congruences[0]
 
-    solution = 0
+    for b, n in congruences[1:]:
+        a, m = result
 
-    for a, n in congruences:
-        solution = (solution + a * N // n % N * modular_inverse(N // n, n)) % N
+        g, v, u = extended_euclidean(m, n)
 
-    return solution, N
+        if a % g != b % g:
+            return -1, -1
+        
+        M = m * n // g
+
+        x = (((a * v * n) + (b * u * m)) // g) % M
+
+        result = (x, M)
+
+    return result
 
 if __name__ == "__main__":
     output = list()
@@ -85,7 +138,10 @@ if __name__ == "__main__":
 
         x, K = crt([(a0, n0), (a1, n1)])
 
-        output.append(f"{x} {K}")
+        if x == -1:
+            output.append("no solution")
+        else:
+            output.append(f"{x} {K}")
 
         index += 1
 

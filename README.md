@@ -108,7 +108,7 @@
 - [x] Rational Arithmetic
 - [x] Modular Arithmetic
 - [x] Chinese Remainder
-- [ ] Chinese Remainder Theorem (non-relatively prime moduli)
+- [x] Chinese Remainder Theorem (non-relatively prime moduli)
 - [ ] Prime Sieve
 
 ## Lab 4
