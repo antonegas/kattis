@@ -109,7 +109,7 @@
 - [x] Modular Arithmetic
 - [x] Chinese Remainder
 - [x] Chinese Remainder Theorem (non-relatively prime moduli)
-- [ ] Prime Sieve
+- [x] Prime Sieve
 
 ## Lab 4
 - [ ] Point class
