@@ -50,13 +50,19 @@ def sieve_of_eratosthenes(n: int) -> tuple[bytearray, int]:
     """
 
     prime_array = bytearray(n // 8 + 1)
-    count = 0
+    count = 1
 
     # 0 and 1 are not prime numbers.
     clear_bit(prime_array, 0)
     clear_bit(prime_array, 1)
 
-    for i in range(2, n + 1):
+    if n < 2:
+        return prime_array, 0
+
+    for i in range(4, n + 1, 2):
+        clear_bit(prime_array, i)
+
+    for i in range(3, n + 1, 2):
         if get_bit(prime_array, i):
             count += 1
 
