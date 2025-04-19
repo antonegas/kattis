@@ -27,6 +27,8 @@ no solution
 def extended_euclidean(a: int, b: int) -> tuple[int, int, int]:
     """
     The extended Euclidean algorithm to get greatest common divisor and the Bézout coefficients.
+    
+    time complexity: O(log(min(a,b)))
     Reference: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
     """
     old_r = a
@@ -46,21 +48,26 @@ def extended_euclidean(a: int, b: int) -> tuple[int, int, int]:
 
 def crt(congruences: list[tuple[int, int]]) -> tuple[int, int]:
     """
-    Given a list of congruences (a_i % n_i), where all n_i are relative primes, finds a 
-    solution which satisfies all the equations.
+    Given a list of congruences (a_i % m_i) finds a solution which satisfies all the equations.
 
-    algorithm: The algorithm used is the Chinese remainder theorem. XXX
-    time complexity: O(XXX)
+    algorithm: The algorithm used is the Chinese remainder theorem. It uses the Bézout's identity 
+    to iteratively calculate a value x which both satisfies the current resulting congruence and 
+    the next congruence.
+    time complexity: O(n*logm)
     where:
-    - n is the XXX
+    - n is the number of congruences.
+    - m is the maximum m_i from all congruences.
     why:
-    - XXX
+    - O(n) from iterating over the congruences.
+    - O(logm) from the maximum minimum value in the extended Euclidean algorithm time complexity being m.
     reference: https://en.wikipedia.org/wiki/Chinese_remainder_theorem#Generalization_to_non-coprime_moduli
 
     parameters:
-    - congruences: a list of congruences one the form (a, n).
+    - congruences: a list of congruences on the form (a, m).
     returns:
-    - The integer a which satisfies all congruences and the product of all n_i / gcd(all n_i).
+    - If there is a solution: the integer x which satisfies all congruences in modolo the product of 
+    all m_i / gcd(all m_i).
+    - If there is no solution: the tuple (-1, -1).
     """
 
     result = congruences[0]
@@ -68,11 +75,14 @@ def crt(congruences: list[tuple[int, int]]) -> tuple[int, int]:
     for b, n in congruences[1:]:
         a, m = result
 
+        # Get the greatest common divisor and the Bézout coefficients for the current iteration.
         g, v, u = extended_euclidean(m, n)
 
+        # If a and b are not equal in modolo of their greatest common divisor there is no solution.
         if a % g != b % g:
             return -1, -1
         
+        # Use Bézout's identity to calculate x satisfying both congruences.
         M = m * n // g
 
         x = ((a * v * n) + (b * u * m)) // g % M
