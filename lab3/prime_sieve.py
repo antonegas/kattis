@@ -51,15 +51,19 @@ def sieve_of_eratosthenes(n: int) -> tuple[bytearray, int]:
     - n is the number of values which is checked to be prime or not.
     why:
     - O(n) from the outer loop.
-    - O(loglogn) from the inner loop, which follows from there being approximately n/logn 
-    primes below n and the k:th prime being approximately k*logk, as per the given reference.
+    - O(n*loglogn) from the inner loop running n/p iterations per prime number p. There are 
+    approximately n/ln(n) primes less than or equal to n and the k:th prime is roughly equal 
+    to k*ln(k). The total number of iterations can then be approximated by the sum from 2 to 
+    n/ln(n) over n/k*ln(k) which can in turn be approximated by an integral to be 
+    roughly n*ln(ln(n)).
+    - O(n+n*loglogn) = O(n*loglogn).
     reference: https://cp-algorithms.com/algebra/sieve-of-eratosthenes.html#implementation
 
     parameters:
     - n: the value which the search for prime numbers should go up to.
     returns:
     - A bytearray where a bit in that array indicates if the corresponding number is prime 
-    and the number of primes.
+    and the number of primes and the number of primes less than or equal to n.
     """
 
     # Initialize a bytearray where a 0 represents that a number is prime. 
