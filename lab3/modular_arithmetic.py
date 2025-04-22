@@ -27,6 +27,8 @@ out:
 def modular_inverse(a: int, b: int) -> int:
     """
     Calculates the modular inverse of a for the divisor n. Gives -1 if there is no modular inverse.
+
+    time complexity: O(log(min(a,b)))
     Reference: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
     """
     old_r = a
@@ -50,27 +52,38 @@ def modular_inverse(a: int, b: int) -> int:
 def modular_add(a: int, b: int, n: int) -> int:
     """
     Calculates the sum of two numbers modolo n.
+
+    time complexity: O(1)
     """
     return (a + b) % n
 
 def modular_subtract(a: int, b: int, n: int) -> int:
     """
     Calculates the difference between two numbers modolo n.
+
+    time complexity: O(1)
     """
     return (a - b) % n
 
 def modular_multiply(a: int, b: int, n: int) -> int:
     """
     Calculates the product of two numbers modolo n.
+
+    time complexity: O(1)
     """
     return (a * b) % n
 
 def modular_divide(a: int, b: int, n: int) -> int:
     """
     Calculates the quotient of two numbers modolo n.
+
+    time complexity: O(log(min(a,b)))
+    why:
+    - O(log(min(a,b))) from running the extended Euclidean algorithm to find the modular inverse.
     """
     b_inverse = modular_inverse(b, n)
 
+    # Negative one indicates that there is no modular inverse for b in modolo n.
     if b_inverse == -1:
         return -1
     

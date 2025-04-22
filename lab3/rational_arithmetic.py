@@ -19,6 +19,8 @@ out:
 def _gcd(a: int, b: int) -> int:
     """
     Calculates the greatest common divisor for two numbers.
+
+    time complexity: O(log(min(a,b)))
     Reference: https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm#Pseudocode
     """
     old_r = a
@@ -39,6 +41,10 @@ def _gcd(a: int, b: int) -> int:
 def rational_create(numerator: int, denominator: int) -> tuple[int, int]:
     """
     Creates a rational number on reduced form.
+
+    time complextiy: O(log(min(a,b)))
+    why:
+    - O(log(min(a,b))) from getting the greatest common divisor.
     """
     if denominator == 0:
         raise ZeroDivisionError
@@ -55,6 +61,10 @@ def rational_create(numerator: int, denominator: int) -> tuple[int, int]:
 def rational_add(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]:
     """
     Calculates the sum of two rational numbers.
+
+    time complextiy: O(log(min(a,b)))
+    why:
+    - O(log(min(a,b))) from simplifying the fraction.
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -67,6 +77,10 @@ def rational_add(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]:
 def rational_subtract(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]:
     """
     Calculates the difference of two rational numbers.
+
+    time complextiy: O(log(min(a,b)))
+    why:
+    - O(log(min(a,b))) from simplifying the fraction.
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -79,6 +93,10 @@ def rational_subtract(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]
 def rational_multiply(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]:
     """
     Calculates the product of two rational numbers.
+
+    time complextiy: O(log(min(a,b)))
+    why:
+    - O(log(min(a,b))) from simplifying the fraction.
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -91,6 +109,10 @@ def rational_multiply(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]
 def rational_divide(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]:
     """
     Calculates the quotient of two rational numbers.
+
+    time complextiy: O(log(min(a,b)))
+    why:
+    - O(log(min(a,b))) from simplifying the fraction.
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -103,6 +125,8 @@ def rational_divide(a: tuple[int, int], b: tuple[int, int]) -> tuple[int, int]:
 def rational_less_than(a: tuple[int, int], b: tuple[int, int]) -> bool:
     """
     Checks if a rational number is strictly less than another.
+
+    time complexity: O(1)
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -112,6 +136,8 @@ def rational_less_than(a: tuple[int, int], b: tuple[int, int]) -> bool:
 def rational_greater_than(a: tuple[int, int], b: tuple[int, int]) -> bool:
     """
     Checks if a rational number is strictly greater than another.
+    
+    time complextiy: O(1)
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -121,6 +147,8 @@ def rational_greater_than(a: tuple[int, int], b: tuple[int, int]) -> bool:
 def rational_less_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
     """
     Checks if a rational number is less than or equal to another.
+
+    time complextiy: O(1)
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -130,6 +158,8 @@ def rational_less_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
 def rational_greater_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
     """
     Checks if a rational number is greater than or equal to another.
+
+    time complextiy: O(1)
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -139,6 +169,8 @@ def rational_greater_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
 def rational_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
     """
     Checks if a rational number is less than or equal to another.
+
+    time complexity: O(1)
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -148,6 +180,8 @@ def rational_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
 def rational_not_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
     """
     Checks if a rational number is less than or equal to another.
+
+    time complexity: O(1)
     """
     a_numerator, a_demoninator = a
     b_numerator, b_denominator = b
@@ -157,6 +191,8 @@ def rational_not_equal(a: tuple[int, int], b: tuple[int, int]) -> bool:
 def rational_from_string(string: str) -> tuple[int, int]:
     """
     Converts a string representation of a rational number to a rational number.
+
+    time complexity: O(1)
     """
     numerator, denominator = map(int, string.split(" / "))
 
@@ -165,6 +201,8 @@ def rational_from_string(string: str) -> tuple[int, int]:
 def rational_to_string(rational: tuple[int, int]) -> str:
     """
     Converts a rational number to a string representation.
+
+    time complexity: O(1)
     """
     numerator, denominator = rational
 
