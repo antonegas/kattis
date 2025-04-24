@@ -58,7 +58,7 @@
 - [ ] Factovisors
 - [ ] Happy Happy Prime Prime
 - [ ] Circular Lock
-- [ ] Rasterized Lines
+- [x] Rasterized Lines
 
 ## Exercise 11
 - [ ] Yet Satisfiability Again!
