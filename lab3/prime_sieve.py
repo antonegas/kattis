@@ -88,8 +88,8 @@ def sieve_of_eratosthenes(n: int) -> tuple[bytearray, int]:
     for i in range(3, n + 1, 2):
         if get_bit(prime_array, i):
             count += 1
-
-            for j in range(i**2, n + 1, i):
+            
+            for j in range(i**2, n + 1, i * 2):
                 clear_bit(prime_array, j)
 
     return prime_array, count
