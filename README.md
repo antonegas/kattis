@@ -55,7 +55,7 @@
 - [ ] Life Forms
 
 ## Exercise 10
-- [ ] Factovisors
+- [x] Factovisors
 - [x] Happy Happy Prime Prime
 - [ ] Circular Lock
 - [x] Rasterized Lines
