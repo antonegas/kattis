@@ -56,7 +56,7 @@
 
 ## Exercise 10
 - [ ] Factovisors
-- [ ] Happy Happy Prime Prime
+- [x] Happy Happy Prime Prime
 - [ ] Circular Lock
 - [x] Rasterized Lines
 
