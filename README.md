@@ -145,3 +145,11 @@
 - [ ] Antenna Placement
 - [ ] Watersheds
 - [x] Arbitrage?
+
+# Session 3:
+- [ ] Primal Partitions 
+- [ ] Repeated Substrings
+- [ ] Phone List
+- [x] Candy Distribution
+- [ ] Thore's self-esteem
+- [x] Emergency Contest Running
