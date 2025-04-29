@@ -61,7 +61,7 @@
 - [x] Rasterized Lines
 
 ## Exercise 11
-- [ ] Yet Satisfiability Again!
+- [x] Yet Satisfiability Again!
 - [ ] Gokigen Naname
 - [ ] Square Fields (Hard)
 - [ ] Maximum Loot
