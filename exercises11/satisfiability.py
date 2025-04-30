@@ -30,6 +30,13 @@ def sat(clauses: list[list[int]], remaining: list[int], current: int, variables:
     false_remaining = list()
 
     for clause_index in remaining:
+        impossible = True
+        for literal in range(current, variables):
+            if clauses[clause_index][literal] != 0:
+                impossible = False
+                break
+        if impossible:
+            return False
         if clauses[clause_index][current] == 0:
             true_remaining.append(clause_index)
             false_remaining.append(clause_index)
@@ -54,19 +61,24 @@ if __name__ == "__main__":
         for _ in range(m):
             clause = [0] * n
 
+            ignore = False
+
             for literal in input().split(" v "):
                 if literal[0] == "~":
-                    if clause[int(literal[2:]) - 1] != 0:
-                        clause[int(literal[2:]) - 1] = 2
+                    literal_index = int(literal[2:]) - 1
+                    if clause[literal_index] != 0:
+                        ignore = True
                     else:
-                        clause[int(literal[2:]) - 1] = -1
+                        clause[literal_index] = -1
                 else:
-                    if clause[int(literal[1:]) - 1] != 0:
-                        clause[int(literal[1:]) - 1] = 2
+                    literal_index = int(literal[1:]) - 1
+                    if clause[literal_index] != 0:
+                        ignore = True
                     else:
-                        clause[int(literal[1:]) - 1] = 1
+                        clause[literal_index] = 1
             
-            clauses.append(clause)
+            if not ignore:
+                clauses.append(clause)
 
         if sat(clauses, [*range(len(clauses))], 0, n):
             print("satisfiable")
