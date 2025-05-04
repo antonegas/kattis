@@ -112,8 +112,9 @@
 - [x] Prime Sieve
 
 ## Lab 4
-- [ ] Point class
+- [x] Point class
 - [ ] Polygon Area
+- [ ] Point in Polygon
 - [ ] Line Segment Intersection
 - [ ] Line Segment Distance
 - [ ] Closest Pair (Uniform)
