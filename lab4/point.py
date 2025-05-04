@@ -1,7 +1,3 @@
-"""
-author: Anton Nilsson
-"""
-
 from __future__ import annotations
 from math import acos
 
@@ -29,7 +25,6 @@ class Point:
             return Point(self.x * scalar, self.y + scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
-
     
     def __truediv__(self, scalar: float) -> Point:
         if type(scalar) is Point:
@@ -47,8 +42,14 @@ class Point:
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
     
+    def __eq__(self, other: Point) -> bool:
+        return self.x == other.x and self.y == other.y
+    
     def __abs__(self) -> float:
         return (self.x**2 + self.y**2)**0.5
+    
+    def __str__(self):
+        return f"({self.x},{self.y})"
     
     def dot(self, other: Point) -> float:
         return self.x * other.x + self.y * other.y
@@ -60,4 +61,16 @@ class Point:
         return abs(self - other)
     
     def angle(self, other: Point) -> float:
-        return acos(self.dot(other) / (abs(self) * abs(other)))
+        ratio = self.dot(other) / (abs(self) * abs(other))
+
+        if ratio > 1:
+            ratio = 1
+        elif ratio < -1:
+            ratio = -1
+
+        angle = acos(ratio)
+
+        if self.cross(other) > 0:
+            return -angle
+        else:
+            return angle
