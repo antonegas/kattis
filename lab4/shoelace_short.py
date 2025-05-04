@@ -1,0 +1,1 @@
+while n:=int(input()):p=[[*map(int,input().split())] for _ in range(n)];a=sum([a[0]*b[1]-a[1]*b[0]for a,b in zip(p,p[1:]+[p[0]])])/2;d="C" if a>0 else "";print(f"{d}CW {abs(a)}")
