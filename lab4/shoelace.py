@@ -100,8 +100,8 @@ def shoelace(vertices: list[Point]) -> float:
     """
     area = 0
 
-    for point1, point2 in zip(vertices, vertices[1:] + [vertices[0]]):
-        area += point1.x * point2.y - point1.y * point2.x
+    for vertex1, vertex2 in zip(vertices, vertices[1:] + [vertices[0]]):
+        area += vertex1.x * vertex2.y - vertex1.y * vertex2.x
 
     return area / 2
 
