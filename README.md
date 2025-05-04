@@ -114,7 +114,7 @@
 ## Lab 4
 - [x] Point class
 - [x] Polygon Area
-- [ ] Point in Polygon
+- [x] Point in Polygon
 - [ ] Line Segment Intersection
 - [ ] Line Segment Distance
 - [ ] Closest Pair (Uniform)

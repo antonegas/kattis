@@ -57,7 +57,6 @@ class Point:
             return Point(self.x * scalar, self.y + scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
-
     
     def __truediv__(self, scalar: float) -> Point:
         if type(scalar) is Point:
@@ -81,6 +80,9 @@ class Point:
     def __abs__(self) -> float:
         return (self.x**2 + self.y**2)**0.5
     
+    def __str__(self):
+        return f"({self.x},{self.y})"
+    
     def dot(self, other: Point) -> float:
         return self.x * other.x + self.y * other.y
     
@@ -91,15 +93,19 @@ class Point:
         return abs(self - other)
     
     def angle(self, other: Point) -> float:
-        angle = acos(self.dot(other) / (abs(self) * abs(other)))
+        ratio = self.dot(other) / (abs(self) * abs(other))
+
+        if ratio > 1:
+            ratio = 1
+        elif ratio < -1:
+            ratio = -1
+
+        angle = acos(ratio)
 
         if self.cross(other) > 0:
             return -angle
         else:
             return angle
-    
-    def __str__(self):
-        return f"({self.x},{self.y})"
 
 def inside_polygon(point: Point, vertices: list[Point]) -> int:
     """
@@ -126,17 +132,21 @@ def inside_polygon(point: Point, vertices: list[Point]) -> int:
 
     angle_sum = 0
 
+    # Loop through the edges of the polygon.
     for vertex1, vertex2 in zip(vertices, vertices[1:] + [vertices[0]]):
         if point == vertex1 or point == vertex2:
             return 0
 
         angle = (vertex1 - point).angle(vertex2 - point)
 
+        # If the angle is pi radians the point is on the edge of the polygon.
         if abs(angle - pi) < EPSILON:
             return 0
 
         angle_sum += angle
     
+    # Since the angle sum is either 2*pi or zero using pi to differentiate between the two cases avoids 
+    # floating point errors.
     if abs(angle_sum) > pi:
         return 1
     else:
