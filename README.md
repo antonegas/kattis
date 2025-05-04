@@ -113,7 +113,7 @@
 
 ## Lab 4
 - [x] Point class
-- [ ] Polygon Area
+- [x] Polygon Area
 - [ ] Point in Polygon
 - [ ] Line Segment Intersection
 - [ ] Line Segment Distance

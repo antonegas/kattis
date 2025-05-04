@@ -1,3 +1,5 @@
 testing/
 *.exe
 .vscode
+
+__pycache__
