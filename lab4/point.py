@@ -1,5 +1,6 @@
 from __future__ import annotations
 from math import acos
+from typing import Union
 
 class Point:
     def __init__(self, x: float, y: float):
@@ -18,15 +19,15 @@ class Point:
         
         return Point(self.x - other.x, self.y - other.y)
     
-    def __mul__(self, scalar) -> Point:
+    def __mul__(self, scalar: Union[Point, float, int]) -> Point:
         if type(scalar) is Point:
             return Point(self.x * scalar.x, self.y * scalar.y)
         if type(scalar) is float or type(scalar) is int:
-            return Point(self.x * scalar, self.y + scalar)
+            return Point(self.x * scalar, self.y * scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
     
-    def __truediv__(self, scalar: float) -> Point:
+    def __truediv__(self, scalar: Union[Point, float, int]) -> Point:
         if type(scalar) is Point:
             return Point(self.x / scalar.x, self.y / scalar.y)
         if type(scalar) is float or type(scalar) is int:
@@ -34,7 +35,7 @@ class Point:
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
     
-    def __floordiv__(self, scalar: float) -> Point:
+    def __floordiv__(self, scalar: Union[Point, float, int]) -> Point:
         if type(scalar) is Point:
             return Point(self.x // scalar.x, self.y // scalar.y)
         if type(scalar) is float or type(scalar) is int:
