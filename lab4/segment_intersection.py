@@ -183,7 +183,7 @@ def segment_intersection(segment1: tuple[Point, Point], segment2: tuple[Point, P
 
     # Handle the case where atleast line segment is a point.
     if r == o or s == o:
-        # If both segments are points they intersect if they are equal
+        # If both segments are points they intersect if they are equal.
         if r == o and s == o:
             return [p1] if p1 == q1 else []
         
