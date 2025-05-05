@@ -115,7 +115,7 @@
 - [x] Point class
 - [x] Polygon Area
 - [x] Point in Polygon
-- [ ] Line Segment Intersection
+- [x] Line Segment Intersection
 - [ ] Line Segment Distance
 - [ ] Closest Pair (Uniform)
 - [ ] Closest Pair
