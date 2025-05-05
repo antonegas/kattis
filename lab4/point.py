@@ -21,7 +21,7 @@ class Point:
     def __mul__(self, scalar) -> Point:
         if type(scalar) is Point:
             return Point(self.x * scalar.x, self.y * scalar.y)
-        if type(scalar) is float and type(scalar) is int:
+        if type(scalar) is float or type(scalar) is int:
             return Point(self.x * scalar, self.y + scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
@@ -29,7 +29,7 @@ class Point:
     def __truediv__(self, scalar: float) -> Point:
         if type(scalar) is Point:
             return Point(self.x / scalar.x, self.y / scalar.y)
-        if type(scalar) is float and type(scalar) is int:
+        if type(scalar) is float or type(scalar) is int:
             return Point(self.x / scalar, self.y / scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
@@ -37,7 +37,7 @@ class Point:
     def __floordiv__(self, scalar: float) -> Point:
         if type(scalar) is Point:
             return Point(self.x // scalar.x, self.y // scalar.y)
-        if type(scalar) is float and type(scalar) is int:
+        if type(scalar) is float or type(scalar) is int:
             return Point(self.x // scalar, self.y // scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
