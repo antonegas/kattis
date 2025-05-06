@@ -116,7 +116,7 @@
 - [x] Polygon Area
 - [x] Point in Polygon
 - [x] Line Segment Intersection
-- [ ] Line Segment Distance
+- [x] Line Segment Distance
 - [ ] Closest Pair (Uniform)
 - [ ] Closest Pair
 - [ ] Convex Hull
