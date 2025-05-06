@@ -168,7 +168,9 @@ def segment_distance(segment1: tuple[Point, Point], segment2: tuple[Point, Point
     """
     Given two line segments returns the shortest distance between them.
 
-    algorithm: XXX
+    algorithm: The shortest distance between two line segments is zero if they intersect. 
+    If the line segments don't intersect the shortest distance between them will be the 
+    shortest distance between one of the vertices and the other segment.
     time complexity: O(1)
     why:
     - O(1) from all constant time operations.
@@ -181,12 +183,15 @@ def segment_distance(segment1: tuple[Point, Point], segment2: tuple[Point, Point
     - The shortest distance between the two line segments.
     """
     
+    # If the line segments intersect the shortest distance is zero.
     if segment_intersection(segment1, segment2):
         return 0.0
 
     p1, p2 = segment1
     q1, q2 = segment2
 
+    # The shortest distance between the two line segments will be the shortest distance 
+    # between one of vertices of the line segments the other line segment.
     segment_point_pairs = [
         (segment1, q1),
         (segment1, q2),
@@ -199,15 +204,19 @@ def segment_distance(segment1: tuple[Point, Point], segment2: tuple[Point, Point
     for segment, point in segment_point_pairs:
         p, q = segment
 
+        # If the line segment is a point the distance is just the distance between the points.
         if p == q:
             shortest_distance = min(point.distance(p), shortest_distance)
             continue
 
+        # Calculate the slope of the line segment.
         dx = q.x - p.x
         dy = q.y - p.y
 
+        # Calculate the t value closest to the current point.
         t = ((point.x - p.x) * dx + (point.y - p.y) * dy) / (dx**2 + dy**2)
 
+        # Clamp t to be on the line segment.
         t = clamp(t, 0, 1)
         
         distance = ((point.x - p.x - t * dx)**2 + (point.y - p.y - t * dy)**2)**0.5
