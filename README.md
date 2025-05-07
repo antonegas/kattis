@@ -68,7 +68,7 @@
 
 ## Exercise 12
 - [ ] Board Wrapping
-- [ ] Triangle Trilemma
+- [x] Triangle Trilemma
 - [ ] White Water Rafting
 - [ ] Barking Up The Wrong Tree
 
