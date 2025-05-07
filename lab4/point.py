@@ -1,6 +1,8 @@
 from __future__ import annotations
-from math import acos
+from math import acos, cos, sin
 from typing import Union
+
+# TODO: add updated class to all other labs and exercises.
 
 class Point:
     def __init__(self, x: float, y: float):
@@ -78,3 +80,6 @@ class Point:
             return -angle
         else:
             return angle
+        
+    def rotate(self, angle: float) -> Point:
+        return Point(self.x * cos(angle) - self.y * sin(angle), self.x * sin(angle) + self.y * cos(angle))
