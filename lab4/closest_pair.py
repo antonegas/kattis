@@ -181,7 +181,7 @@ def closest_pair(points: list[Point], left: int, right: int) -> tuple[Point, Poi
     return shortest
  
 def strict_formatting(point: Point):
-    return "{0:.2f}".format(point.x + 0.0) + " " + "{0:.2f}".format(point.y + 0.0)   
+    return "{0:.2f}".format(point.x + 0.0) + " " + "{0:.2f}".format(point.y + 0.0)
 
 if __name__ == "__main__":
     output = list()
