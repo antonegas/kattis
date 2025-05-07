@@ -67,7 +67,7 @@
 - [ ] Maximum Loot
 
 ## Exercise 12
-- [ ] Board Wrapping
+- [x] Board Wrapping
 - [x] Triangle Trilemma
 - [x] White Water Rafting
 - [ ] Barking Up The Wrong Tree
