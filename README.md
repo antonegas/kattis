@@ -119,7 +119,7 @@
 - [x] Line Segment Distance
 - [ ] Closest Pair (Uniform)
 - [ ] Closest Pair
-- [ ] Convex Hull
+- [x] Convex Hull
 - [ ] Maximum Number of Colinear Points
 - [ ] Linear Recurrences
 
