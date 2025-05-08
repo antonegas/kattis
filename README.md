@@ -120,7 +120,7 @@
 - [ ] Closest Pair (Uniform)
 - [ ] Closest Pair
 - [x] Convex Hull
-- [ ] Maximum Number of Colinear Points
+- [x] Maximum Number of Colinear Points
 - [ ] Linear Recurrences
 
 # Problem Solving Sessions
