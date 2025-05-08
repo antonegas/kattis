@@ -1,5 +1,5 @@
 from __future__ import annotations
-from math import acos, cos, sin
+from math import acos, cos, sin, sqrt
 from typing import Union
 
 # TODO: add updated class to all other labs and exercises.
@@ -49,7 +49,7 @@ class Point:
         return self.x == other.x and self.y == other.y
     
     def __abs__(self) -> float:
-        return (self.x**2 + self.y**2)**0.5
+        return sqrt(self.x**2 + self.y**2)
     
     def __str__(self):
         return f"({self.x},{self.y})"
