@@ -29,6 +29,21 @@ out:
 1
 50 50
 
+testcase 2:
+in:
+5
+1 0
+2 0
+3 0
+4 0
+5 0
+0
+
+out:
+2
+1 0
+5 0
+
 """
 
 from __future__ import annotations
