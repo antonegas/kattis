@@ -85,9 +85,7 @@ class Point:
         return Point(self.x * cos(angle) - self.y * sin(angle), self.x * sin(angle) + self.y * cos(angle))
     
     def normalize(self) -> Point:
-        return self / abs(self)
-    
-    def __hash__(self) -> int:
-        normalized = self.normalize()
+        if self == Point(0, 0):
+            return Point(0, 0)
 
-        return hash((normalized.x, normalized.y))
+        return self / abs(self)
