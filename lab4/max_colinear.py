@@ -122,44 +122,57 @@ class Point:
 
 def max_colinear(points: list[Point]) -> int:
     """
-    XXX description XXX
+    Given a list of points find the maximum number of colinear points.
 
-    algorithm: XXX
-    time complexity: O(XXX)
-    space complexity: O(XXX)
+    algorithm: Calculate the slope between each pair of points (p, q) going in the 
+    right direction. If two points q1 and q2 has the same slope with p they are 
+    both in the same line with p. Hash this slope to keep count of how many points 
+    are in the same line.
+    time complexity: O(n^3) or Theta(n^2)
     where:
-    - n is the XXX
+    - n is the number of points
     why:
-    - XXX
-    reference: XXX
+    - O(n^2) from looping over every pair of points.
+    - O(n) from worst case hashmap insertion and lookup.
+    - Theta(1) from best case hashmap insertion and lookup.
+    reference: https://math.stackexchange.com/a/20260
 
     parameters:
-    - XXX
+    - points: a list of points to find the maximum number of colinear points for.
     returns:
-    - XXX
+    - The maximum number of colinear points.
     """
 
-    if len(points) == 1:
-        return 1
+    # If there are two or less points the maximum number of colinear points is equal 
+    # to the number of points.
+    if len(points) <= 2:
+        return len(points)
     
     maximum = 1
 
-    for p in points:
+    # Loop over every pair of points.
+    for i in range(len(points)):
+        p = points[i]
+
+        # Initialize count to one for every slope since p is in every line.
         count = defaultdict(lambda: 1)
-        for q in points:
-            if p == q:
-                continue
+        
+        for j in range(i + 1, len(points)):
+            q = points[j]
 
             key = float("inf")
 
+            # Check which order of the points results in a slope going in the 
+            # right direction.
             if p.x < q.x:
                 key = (q.y - p.y) / (q.x - p.x)
             elif p.x > q.x:
                 key = (p.y - q.y) / (p.x - q.x)
 
+            # Increase the count for the slope. If the count is larger than the current 
+            # maximum update it.
             count[key] += 1
-
-        maximum = max(maximum, *count.values())
+            maximum = max(maximum, count[key])
 
     return maximum
 
