@@ -142,9 +142,10 @@ def graham_scan(points: list[Point], include_colinear: bool) -> list[Point]:
         while len(stack) > 1 and not is_clockwise(stack[-2], stack[-1], point, include_colinear):
             stack.pop()
 
-        stack.append(point)
+        if len(stack) == 0 or stack[-1] != point:
+            stack.append(point)
 
-    return stack
+    return [stack[0]] + list(reversed(stack[1:]))
 
 def shoelace(vertices: list[Point]) -> float:
     area = 0
