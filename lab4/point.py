@@ -83,3 +83,11 @@ class Point:
         
     def rotate(self, angle: float) -> Point:
         return Point(self.x * cos(angle) - self.y * sin(angle), self.x * sin(angle) + self.y * cos(angle))
+    
+    def normalize(self) -> Point:
+        return self / abs(self)
+    
+    def __hash__(self) -> int:
+        normalized = self.normalize()
+
+        return hash((normalized.x, normalized.y))
