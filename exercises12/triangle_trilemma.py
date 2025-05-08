@@ -106,7 +106,7 @@ class Point:
             return angle
 
 def triangle_type(a: Point, b: Point, c: Point) -> tuple[int, int]:
-    if abs(a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) == 0:
+    if a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y) == 0:
         return 0, 0
     
     ab = b - a
