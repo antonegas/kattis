@@ -63,6 +63,9 @@ def spfa(adjacent: list[list[int]], edge_costs: list[list[float]], source: int) 
         queued[u] = False
 
         for v in adjacent[u]:
+            if v == u:
+                continue
+
             edge_cost = edge_costs[u][v]
             cost = costs[u] + edge_cost
 
@@ -124,7 +127,7 @@ def dinic_bfs(source: int, capacity: list[list[int]], flow: list[list[int]], cos
         u = queue.popleft()
 
         for v in adjacent[u]:
-            if capacity[u][v] == flow[u][v] or level[v] != -1 or cost[u][v] != 0:
+            if capacity[u][v] - flow[u][v] <= 0 or level[v] != -1 or cost[u][v] != 0:
                 continue
             level[v] = level[u] + 1
             queue.append(v)
@@ -173,9 +176,13 @@ def recalculate_edge_costs(adjacent: list[list[int]], path_costs: list[float], c
     for u in range(len(adjacent)):
         if path_costs[u] == float("inf"):
             continue
+        if path_costs[u] == float("-inf"):
+            continue
 
         for v in adjacent[u]:
             if path_costs[v] == float("inf"):
+                continue
+            if path_costs[v] == float("-inf"):
                 continue
 
             cost[u][v] += path_costs[u] - path_costs[v]
@@ -213,8 +220,8 @@ def primal_dual(capacity: list[list[int]], graph_cost: list[list[float]], adjace
     path_costs = spfa(adjacent, cost, source)
     recalculate_edge_costs(adjacent, path_costs, cost)
 
-    path_costs = dijkstra(adjacent, capacity, flow, cost, source) # TODO: Check if this needs to be here or if bellman is enough
-    recalculate_edge_costs(adjacent, path_costs, cost)
+    # path_costs = dijkstra(adjacent, capacity, flow, cost, source) # TODO: Check if this needs to be here or if bellman is enough
+    # recalculate_edge_costs(adjacent, path_costs, cost)
     
     while path_costs[sink] != float("inf"):
         dinic(capacity, cost, flow, adjacent, source, sink)
@@ -242,9 +249,9 @@ if __name__ == "__main__":
             adjacent[v].append(u)
         if capacity_graph[u][v] == 0:
             edges.append((u, v))
-        capacity_graph[u][v] += c
+        capacity_graph[u][v] = c
         cost_graph[u][v] = w
-        cost_graph[u][v] = w
+        # cost_graph[v][u] = 0
 
         index += 1
 
