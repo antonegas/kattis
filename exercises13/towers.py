@@ -52,7 +52,7 @@ Case 1:
 from functools import cmp_to_key
 from math import log2
 
-def n_exponantiations(tower: list[int]) -> tuple[list[int], int, float]:
+def n_exponentiations(tower: list[int]) -> tuple[list[int], int, float]:
     LIMIT = 1024
 
     current = 1
@@ -98,7 +98,7 @@ def sort_towers(towers: list[list[int]]):
         if 1 in tower:
             tower = tower[:tower.index(1)]
         
-        values.append(n_exponantiations(tower))
+        values.append(n_exponentiations(tower))
 
     return sorted(range(len(towers)), key=cmp_to_key(lambda a, b: compare(values[a], values[b])))
 
