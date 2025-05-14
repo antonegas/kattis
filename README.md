@@ -73,7 +73,7 @@
 - [ ] Barking Up The Wrong Tree
 
 ## Exercise 13
-- [ ] How many 0's?
+- [x] How many 0's?
 - [ ] (un)Fair Play
 - [ ] Bag of Tiles
 - [x] Towers of Powers 2: Power Harder
