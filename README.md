@@ -76,7 +76,7 @@
 - [ ] How many 0's?
 - [ ] (un)Fair Play
 - [ ] Bag of Tiles
-- [ ] Towers of Powers 2: Power Harder
+- [x] Towers of Powers 2: Power Harder
 
 # Labs
 
