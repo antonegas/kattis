@@ -147,7 +147,7 @@
 - [ ] Watersheds
 - [x] Arbitrage?
 
-# Session 3:
+## Session 3:
 - [ ] Primal Partitions 
 - [ ] Repeated Substrings
 - [ ] Phone List
