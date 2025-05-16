@@ -75,7 +75,7 @@
 ## Exercise 13
 - [x] How many 0's?
 - [ ] (un)Fair Play
-- [ ] Bag of Tiles
+- [x] Bag of Tiles
 - [x] Towers of Powers 2: Power Harder
 
 # Labs
