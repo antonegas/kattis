@@ -154,3 +154,11 @@
 - [x] Candy Distribution
 - [ ] Thore's self-esteem
 - [x] Emergency Contest Running
+
+## Session 4:
+- [ ] Birthday Cake 
+- [x] Imperfect GPS 
+- [ ] Return of the Jedi 
+- [x] Class Picture 
+- [ ] Robert Hood 
+- [x] Trojke 
