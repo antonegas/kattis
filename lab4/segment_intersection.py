@@ -33,7 +33,7 @@ out:
 """
 
 from __future__ import annotations
-from math import acos
+from math import acos, cos, sin, sqrt
 from typing import Union
 
 class Point:
@@ -81,7 +81,7 @@ class Point:
         return self.x == other.x and self.y == other.y
     
     def __abs__(self) -> float:
-        return (self.x**2 + self.y**2)**0.5
+        return sqrt(self.x**2 + self.y**2)
     
     def __str__(self):
         return f"({self.x},{self.y})"
@@ -112,6 +112,15 @@ class Point:
             return -angle
         else:
             return angle
+        
+    def rotate(self, angle: float) -> Point:
+        return Point(self.x * cos(angle) - self.y * sin(angle), self.x * sin(angle) + self.y * cos(angle))
+    
+    def normalize(self) -> Point:
+        if self == Point(0, 0):
+            return Point(0, 0)
+        
+        return self / abs(self)
         
 def point_on_segment(segment: tuple[Point, Point], c: Point) -> bool:
     """

@@ -31,7 +31,8 @@ in
 """
 
 from __future__ import annotations
-from math import acos, pi
+from math import acos, cos, sin, sqrt, pi
+from typing import Union
 
 class Point:
     def __init__(self, x: float, y: float):
@@ -50,26 +51,26 @@ class Point:
         
         return Point(self.x - other.x, self.y - other.y)
     
-    def __mul__(self, scalar) -> Point:
+    def __mul__(self, scalar: Union[Point, float, int]) -> Point:
         if type(scalar) is Point:
             return Point(self.x * scalar.x, self.y * scalar.y)
-        if type(scalar) is float and type(scalar) is int:
-            return Point(self.x * scalar, self.y + scalar)
+        if type(scalar) is float or type(scalar) is int:
+            return Point(self.x * scalar, self.y * scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
     
-    def __truediv__(self, scalar: float) -> Point:
+    def __truediv__(self, scalar: Union[Point, float, int]) -> Point:
         if type(scalar) is Point:
             return Point(self.x / scalar.x, self.y / scalar.y)
-        if type(scalar) is float and type(scalar) is int:
+        if type(scalar) is float or type(scalar) is int:
             return Point(self.x / scalar, self.y / scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
     
-    def __floordiv__(self, scalar: float) -> Point:
+    def __floordiv__(self, scalar: Union[Point, float, int]) -> Point:
         if type(scalar) is Point:
             return Point(self.x // scalar.x, self.y // scalar.y)
-        if type(scalar) is float and type(scalar) is int:
+        if type(scalar) is float or type(scalar) is int:
             return Point(self.x // scalar, self.y // scalar)
         
         raise TypeError(f"unsupported operand type(s) for *: 'Point' and '{type(scalar).__name__}'")
@@ -78,10 +79,13 @@ class Point:
         return self.x == other.x and self.y == other.y
     
     def __abs__(self) -> float:
-        return (self.x**2 + self.y**2)**0.5
+        return sqrt(self.x**2 + self.y**2)
     
     def __str__(self):
         return f"({self.x},{self.y})"
+    
+    def __repr__(self):
+        return str(self)
     
     def dot(self, other: Point) -> float:
         return self.x * other.x + self.y * other.y
@@ -106,6 +110,15 @@ class Point:
             return -angle
         else:
             return angle
+        
+    def rotate(self, angle: float) -> Point:
+        return Point(self.x * cos(angle) - self.y * sin(angle), self.x * sin(angle) + self.y * cos(angle))
+    
+    def normalize(self) -> Point:
+        if self == Point(0, 0):
+            return Point(0, 0)
+
+        return self / abs(self)
 
 def inside_polygon(point: Point, vertices: list[Point]) -> int:
     """
