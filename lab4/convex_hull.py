@@ -166,26 +166,36 @@ def compare_angle(a: Point, b: Point, c: Point) -> int:
 
 def graham_scan(points: list[Point], include_colinear: bool) -> list[Point]:
     """
-    XXX description XXX
+    Given a list of points finds points finds the convex hull for those points.
 
-    algorithm: XXX
-    time complexity: O(XXX)
-    space complexity: O(XXX)
+    algorithm: The algorithm used is Graham's scan algorithm. It works by finding the buttom-left 
+    point and then sorting the other points based on polar angle with and distance from this point. 
+    These sorted points are then iterated through and added to a stack. The top point of the stack 
+    is removed until the new point, the point at the top of the stack and the point under it, 
+    create a clockwise turn. This will give a the convex hull with the points in clockwise order.
+    time complexity: O(n*logn)
     where:
-    - n is the XXX
+    - n is the number of points.
     why:
-    - XXX
+    - O(n) from finding the bottom-left point.
+    - O(n*logn) from sorting the other points based on angle.
+    - O(n)
     reference: https://cp-algorithms.com/geometry/convex-hull.html#implementation
 
     parameters:
-    - XXX
+    - points: the points to find the convex hull for.
+    - include_colinear: if colinear points should be included in the convex hull.
     returns:
-    - XXX
+    - A list of the points in the convex hull given in counter clockwise order.
     """
     
+    # Find the bottom left point and sort the other points based on the polar angle with 
+    # and distance from it.
     p0 = min(points, key=lambda p:(p.y, p.x))
     points = sorted(points, key=cmp_to_key(lambda x, y: compare_angle(p0, x, y)))
 
+    # If the convex hull should include colinear points the order of the last points has to be 
+    # reversed if they are colinear.
     if include_colinear:
         i = len(points) - 1
         while i >= 0 and is_colinear(p0, points[i], points[-1]):
@@ -194,6 +204,8 @@ def graham_scan(points: list[Point], include_colinear: bool) -> list[Point]:
 
     stack = list()
 
+    # Go through the sorted points and add them to the stack. If the current point, the top point 
+    # and the point under it is not in clockwise order remove the top point until they are.
     for point in points:
         while len(stack) > 1 and not is_clockwise(stack[-2], stack[-1], point, include_colinear):
             stack.pop()
@@ -201,6 +213,7 @@ def graham_scan(points: list[Point], include_colinear: bool) -> list[Point]:
         if len(stack) == 0 or stack[-1] != point:
             stack.append(point)
 
+    # Reverse the convex hull to make it ordered in counterclockwise order.
     return [stack[0]] + list(reversed(stack[1:]))
 
 if __name__ == "__main__":
