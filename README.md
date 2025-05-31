@@ -9,7 +9,7 @@
 ## Exercise 2
 - [x] Chopping Wood
 - [x] Turbo
-- [ ] Introspective Caching
+- [x] Introspective Caching
 - [x] The SetStack Computer
 
 ## Exercise 3
