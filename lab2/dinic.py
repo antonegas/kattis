@@ -225,6 +225,17 @@ def dinic(capacity: list[list[int]], adjacent: list[list[int]], source: int, sin
 
     return flow
 
+def add_edge(graph: list[list[int]], adjacent: list[list[int]], edges: list[tuple[int, int]], u: int, v: int, capacity: int):
+    """
+    Adds an edge to the capacity graph with the given capacity.
+    """
+    if graph[u][v] == 0 and graph[v][u] == 0:
+        adjacent[u].append(v)
+        adjacent[v].append(u)
+    if graph[u][v] == 0:
+        edges.append((u, v))
+    graph[u][v] += capacity
+
 if __name__ == "__main__":
     output = list()
     lines = open(0, "r").read().splitlines()
@@ -238,12 +249,7 @@ if __name__ == "__main__":
 
     for _ in range(m):
         u, v, c = map(int, lines[index].split(" "))
-        if graph[u][v] == 0 and graph[v][u] == 0:
-            adjacent[u].append(v)
-            adjacent[v].append(u)
-        if graph[u][v] == 0:
-            edges.append((u, v))
-        graph[u][v] += c
+        add_edge(graph, adjacent, edges, u, v, c)
 
         index += 1
 

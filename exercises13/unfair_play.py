@@ -82,6 +82,12 @@ def dinic(capacity: list[list[int]], adjacent: list[list[int]], source: int, sin
 
     return flow
 
+def add_edge(graph: list[list[int]], adjacent: list[list[int]], u: int, v: int, capacity: int):
+    if graph[u][v] == 0 and graph[v][u] == 0:
+        adjacent[u].append(v)
+        adjacent[v].append(u)
+    graph[u][v] += capacity
+
 def unfair_play(standings: list[int], matches: list[tuple[int, int]]):
     node_count = len(standings) + len(matches) + 2
     team_nodes = [0] + [len(matches) + team + 1 for team in range(len(standings))]
@@ -101,34 +107,24 @@ def unfair_play(standings: list[int], matches: list[tuple[int, int]]):
         match_edges.append((i, team_nodes[team2]))
 
         # Add edge with capacity 2 from source to match.
-        adjacent[source].append(i)
-        adjacent[i].append(source)
-        graph[source][i] = 2
+        add_edge(graph, adjacent, source, i, 2)
 
         if team1 == our_team or team2 == our_team:
             # If either team is ours add an edge from the match to our team.
             max_allowed += 2
 
-            adjacent[i].append(team_nodes[our_team])
-            adjacent[team_nodes[our_team]].append(i)
-            graph[i][team_nodes[our_team]] = 2
+            add_edge(graph, adjacent, i, team_nodes[our_team], 2)
         else:
             # If neither team is ours add edges from the match to each team.
-            adjacent[i].append(team_nodes[team1])
-            adjacent[i].append(team_nodes[team2])
-            adjacent[team_nodes[team1]].append(i)
-            adjacent[team_nodes[team2]].append(i)
-            graph[i][team_nodes[team1]] = 2
-            graph[i][team_nodes[team2]] = 2
+            add_edge(graph, adjacent, i, team_nodes[team1], 2)
+            add_edge(graph, adjacent, i, team_nodes[team2], 2)
 
     for team in range(len(standings)):
         if standings[team] > max_allowed:
             return list()
         
         # Add edge with maximum allowed points as capacity between team and sink.
-        adjacent[team_nodes[team + 1]].append(sink)
-        adjacent[sink].append(team_nodes[team + 1])
-        graph[team_nodes[team + 1]][sink] = max_allowed - standings[team]
+        add_edge(graph, adjacent, team_nodes[team + 1], sink, max_allowed - standings[team])
 
     # Our team is allowed to score one more point than the other teams.
     graph[team_nodes[our_team]][sink] += 1

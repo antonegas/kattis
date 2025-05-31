@@ -150,6 +150,15 @@ def minimum_cut(graph: list[list[int]], adjacent: list[list[int]], source: int, 
 
     return U
 
+def add_edge(graph: list[list[int]], adjacent: list[list[int]], u: int, v: int, capacity: int):
+    """
+    Adds an edge to the capacity graph with the given capacity.
+    """
+    if graph[u][v] == 0 and graph[v][u] == 0:
+        adjacent[u].append(v)
+        adjacent[v].append(u)
+    graph[u][v] += capacity
+
 if __name__ == "__main__":
     output = list()
     lines = open(0, "r").read().splitlines()
@@ -159,16 +168,10 @@ if __name__ == "__main__":
 
     graph = [[0] * n for _ in range(n)]
     adjacent = [list() for _ in range(n)]
-    edges = list()
 
     for _ in range(m):
         u, v, w = map(int, lines[index].split(" "))
-        if graph[u][v] == 0 and graph[v][u] == 0:
-            adjacent[u].append(v)
-            adjacent[v].append(u)
-        if graph[u][v] == 0:
-            edges.append((u, v))
-        graph[u][v] += w
+        add_edge(graph, adjacent, u, v, w)
 
         index += 1
 
