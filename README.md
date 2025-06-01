@@ -31,7 +31,7 @@
 - [x] Proving Equivalences
 
 ## Exercise 6
-- [ ] George
+- [x] George
 - [x] Island Hopping
 - [ ] Full Tank?
 - [ ] Councilling
