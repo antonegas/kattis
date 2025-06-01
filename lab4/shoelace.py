@@ -114,7 +114,8 @@ def shoelace(vertices: list[Point]) -> float:
     """
     Given a list of vertices in a polygon calculates the area of the polygon.
 
-    algorithm: The formula used is Gauss' shoelace formula.
+    algorithm: The formula used is Gauss' shoelace formula. It works by dividing the 
+    polygon into triangles and calculating the sum of the area of these triangles. 
     time complexity: O(n)
     where:
     - n is the number of vertices in the polygon.
