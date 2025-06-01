@@ -101,7 +101,7 @@ def time_table_dijkstra(timetable: list[list[tuple[int, int, int, int]]], source
             else:
                 # If t0 has passed the time required is the current time, the time remaining until the edge becomes 
                 # available again and the time required to use the edge.
-                time_until_available =  (edge_period - ((time - edge_t0) % edge_period)) % edge_period
+                time_until_available = (edge_period - ((time - edge_t0) % edge_period)) % edge_period
                 adjacent_time = time + time_until_available + edge_time
                 heappush(queue, (adjacent_time, adjacent_vertex, vertex))
 
