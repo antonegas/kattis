@@ -90,6 +90,9 @@ def time_table_dijkstra(timetable: list[list[tuple[int, int, int, int]]], source
 
         # Add adjacent vertices to the queue with the time required set based on the time table.
         for adjacent_vertex, edge_t0, edge_period, edge_time in timetable[vertex]:
+            if visited[adjacent_vertex]:
+                continue
+
             # If the period for the edge is zero the edge can only be used if t0 has not passed.
             if edge_period == 0 and time > edge_t0:
                 continue

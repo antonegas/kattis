@@ -92,8 +92,9 @@ def dijkstra(adjacent: list[list[tuple[int, int]]], source: int) -> tuple[list[f
         # Add adjacent vertices to the queue with the cost set to the cost of reaching the the current vertex plus 
         # the cost of the connecting edge and the previous vertex set to the current vertex.
         for v, edge_cost in adjacent[u]:
-            adjacent_cost = cost + edge_cost
-            heappush(queue, (adjacent_cost, v, u))
+            if not visited[v]:
+                adjacent_cost = cost + edge_cost
+                heappush(queue, (adjacent_cost, v, u))
 
     return costs, previous
 
