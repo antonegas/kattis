@@ -40,7 +40,7 @@
 - [x] Get Shorty
 - [x] Hiding Places
 - [x] XYZZY
-- [ ] Risk
+- [x] Risk
 
 ## Exercise 8
 - [x] Evil Straw Warts Live
