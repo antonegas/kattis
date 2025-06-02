@@ -34,7 +34,7 @@
 - [x] George
 - [x] Island Hopping
 - [x] Full Tank?
-- [ ] Councilling
+- [x] Councilling
 
 ## Exercise 7
 - [x] Get Shorty

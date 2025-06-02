@@ -35,9 +35,6 @@ Impossible.
 """
 
 from collections import deque, defaultdict
-from math import ceil
-
-from collections import deque
 
 def bfs(source: int, capacity: list[list[int]], flow: list[list[int]], adjacent: list[list[int]]) -> list[int]:
     level = [-1] * len(adjacent)
@@ -57,119 +54,125 @@ def bfs(source: int, capacity: list[list[int]], flow: list[list[int]], adjacent:
 
     return level
 
-def dfs(u: int, pushed: int, sink: int, ptr: list[int], level: list[int], capacity: list[list[int]], flow: list[list[int]]) -> int:
+def dfs(u: int, pushed: int, sink: int, edge_pointers: list[int], level: list[int], capacity: list[list[int]], flow: list[list[int]]) -> int:
     if u == sink or pushed == 0:
         return pushed
 
-    while ptr[u] < len(flow):
-        v = ptr[u]
+    while edge_pointers[u] < len(flow):
+        v = edge_pointers[u]
 
-        if level[u] + 1 == level[v]:
-            delta = dfs(v, min(pushed, capacity[u][v] - flow[u][v]), sink, ptr, level, capacity, flow)
+        if level[u] + 1 == level[v] and capacity[u][v] - flow[u][v] > 0:
+            delta = dfs(v, min(pushed, capacity[u][v] - flow[u][v]), sink, edge_pointers, level, capacity, flow)
 
             if delta > 0:
                 flow[u][v] += delta
                 flow[v][u] -= delta
                 return delta
 
-        ptr[u] += 1    
+        edge_pointers[u] += 1
     
     return 0
 
-def dinic(graph: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
-    capacity = [u[:] for u in graph]
+def dinic(capacity: list[list[int]], adjacent: list[list[int]], source: int, sink: int) -> list[list[int]]:
     flow = [[0] * len(adjacent) for _ in range(len(adjacent))]
 
     level = bfs(source, capacity, flow, adjacent)
 
     while level[sink] != -1:
-        ptr = [0] * len(adjacent)
+        edge_pointers = [0] * len(adjacent)
 
-        while dfs(source, 10**8, sink, ptr, level, capacity, flow) > 0:
+        while dfs(source, 10**8, sink, edge_pointers, level, capacity, flow) > 0:
             pass
 
         level = bfs(source, capacity, flow, adjacent)
 
     return flow
 
+def add_edge(graph: list[list[int]], adjacent: list[list[int]], u: int, v: int, capacity: int):
+    if capacity == 0:
+        return
+
+    if graph[u][v] == 0 and graph[v][u] == 0:
+        adjacent[u].append(v)
+        adjacent[v].append(u)
+    graph[u][v] = capacity
+
+def councilling(residents: dict[str, str], club_members: dict[str, list[str]]) -> list[tuple[str, str]]:
+    node_count = 1
+
+    club_nodes = {club: i for i, club in enumerate(club_members, 1)}
+    node_count += len(club_nodes)
+
+    resident_nodes = {resident: i for i, resident in enumerate(residents, node_count)}
+    node_count += len(resident_nodes)
+
+    party_nodes = {party: i for i, party in enumerate(set(residents.values()), node_count)}
+    node_count += len(party_nodes)
+
+    node_count += 1
+
+    graph = [[0] * node_count for _ in range(node_count)]
+    adjacent = [list() for _ in range(node_count)]
+
+    source = 0
+    sink = node_count - 1
+
+    max_allowed = (len(club_nodes) - 1) // 2
+
+    for club, u in club_nodes.items():
+        add_edge(graph, adjacent, source, u, 1)
+
+        for resident in club_members[club]:
+            party = residents[resident]
+
+            v = resident_nodes[resident]
+            w = party_nodes[party]
+
+            add_edge(graph, adjacent, u, v, 1)
+            add_edge(graph, adjacent, v, w, 1)
+
+    for w in party_nodes.values():
+        add_edge(graph, adjacent, w, sink, max_allowed)
+
+    flow_graph = dinic(graph, adjacent, source, sink)
+
+    if sum(flow_graph[0]) != len(club_members):
+        return list()
+
+    result = list()
+
+    for club in club_members:
+        u = club_nodes[club]
+
+        for resident in club_members[club]:
+            v = resident_nodes[resident]
+
+            if flow_graph[u][v] == 1:
+                result.append((resident, club))
+
+    return result
+
 if __name__ == "__main__":
-    output = list()
-    lines = open(0, "r").read().splitlines()[1:]
+    for _ in range(int(input())):
+        n = int(input())
 
-    index = 0
+        residents = dict()
+        club_members = defaultdict(lambda: list())
 
-    while len(lines) > index:
-        n = int(lines[index])
-        index += 1
+        for i in range(n):
+            resident, party, _, *clubs = input().split(" ")
 
-        club_nodes = dict()
-        resident_nodes = dict()
-        party_nodes = dict()
-
-        edges = list()
-        club_resident_edges = list()
-
-        source = 0
-        sink = 1
-        total_nodes = 2
-
-        for _ in range(n):
-            resident, party, _, *clubs = lines[index].split(" ")
-
-            if resident not in resident_nodes:
-                resident_nodes[resident] = total_nodes
-                total_nodes += 1
-
-            if party not in party_nodes:
-                party_nodes[party] = total_nodes
-                total_nodes += 1
-
-            resident_party_edge = (resident_nodes[resident], party_nodes[party], 1)
-            edges.append(resident_party_edge)
+            residents[resident] = party
 
             for club in clubs:
-                if club not in club_nodes:
-                    club_nodes[club] = total_nodes
-                    total_nodes += 1
-                
-                club_resident_edge = (club_nodes[club], resident_nodes[resident])
-                edges.append(club_resident_edge + (1,))
-                club_resident_edges.append(club_resident_edge + (club, resident,))
+                club_members[club].append(resident)
 
-            index += 1
+        result = councilling(residents, club_members)
 
-        party_limit = (len(club_nodes) - 1) // 2
+        if len(result) == 0:
+            print("Impossible.")
+        else:
+            for resident, club in result:
+                print(resident, club)
 
-        for party_node in party_nodes.values():
-            party_sink_edge = (party_node, sink, party_limit)
-            edges.append(party_sink_edge)
-
-        for club_node in club_nodes.values():
-            source_club_edge = (source, club_node, 1)
-            edges.append(source_club_edge)
-
-        graph = [[0] * total_nodes for _ in range(total_nodes)]
-        adjacent = [list() for _ in range(total_nodes)]
-
-        for u, v, capacity in edges:
-            if graph[u][v] == 0 and graph[v][u] == 0:
-                adjacent[u].append(v)
-                adjacent[v].append(u)
-            graph[u][v] += capacity
-
-        flow_graph = dinic(graph, adjacent, source, sink)
-
-        flow = sum(flow_graph[source])
-
-        if flow != len(club_nodes):
-            output.append("Impossible.")
-            output.append("")
-            continue
-
-        for u, v, club, resident in club_resident_edges:
-            if flow_graph[u][v] > 0:
-                output.append(f"{resident} {club}")
-
-        output.append("")
-
-    open(1, "w").write("\n".join(output))
+        print("")
