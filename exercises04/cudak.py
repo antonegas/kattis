@@ -26,11 +26,9 @@ out:
 
 """
 
-def smallest_integer(target: int, start: int, end: int) -> int:
-    start_list = [*map(int, str(start).zfill(len(str(end))))]
-    result = start_list[:]
-
-    index = len(start_list) - 1
+def cudak_smallest(target: int, start: int, end: int) -> int:
+    result = [*map(int, str(start).zfill(len(str(end))))]
+    index = len(result) - 1
     while target - sum(result) > 0 and index >= 0:
         remaining = target + result[index] - sum(result)
 
@@ -40,36 +38,33 @@ def smallest_integer(target: int, start: int, end: int) -> int:
 
     return int("".join(map(str, result)))
 
-def total_digit_sum(target: int, upper: int, digits: int) -> int:
-    upper_list = [*map(int, str(upper).zfill(digits))]
-    table = [[0] * 136 for _ in range(digits + 1)]
+def cudak_total(target: int, upper: int) -> int:
+    bounds = [*map(int, str(upper))]
+    total = [[0] * (target + 1) for _ in range(len(bounds))]
 
-    table[0][0] = 1
+    for j in range(min(bounds[0], target + 1)):
+        total[0][j] = 1
 
-    for digit in range(digits):
-        for digit_sum in range(target):
-            max_possible = sum(upper_list[:digit + 1])
-            total = table[digit][digit_sum]
-            if digit_sum == max_possible:
-                for i in range(upper_list[digit + 1] + 1):
-                    table[digit + 1][digit_sum + i] += total
-            elif digit_sum < max_possible:
-                for i in range(10):
-                    table[digit + 1][digit_sum + i] += total
+    bound_sum = bounds[0]
 
-    return table[digits][target]
+    for i, bound in enumerate(bounds[1:]):
+        for j in range(target + 1):
+            if total[i][j] == 0 and j != bound_sum:
+                continue
+            
+            for digit in range(min(10, target - j + 1)):
+                total[i + 1][j + digit] += total[i][j]
+                if digit < bound and j == bound_sum:
+                    total[i + 1][j + digit] += 1
+
+        bound_sum += bound
+
+    if bound_sum == target:
+        total[-1][-1] += 1
+    return total[-1][-1]
 
 if __name__ == "__main__":
-    output = list()
-    data = open(0, "r").read()
+    start, end, target = map(int, input().split(" "))
 
-    start, end, target = map(int, data.split())
-
-    output.append(str(total_digit_sum(target, end, len(str(end))) - total_digit_sum(target, start, len(str(end)))))
-    output.append(str(smallest_integer(target, start, end)))
-
-    # print(smallest_integer(5, 1, 9))
-    # print(smallest_integer(10, 1, 100))
-    # print(smallest_integer(24, 11111, 99999))
-
-    open(1, "w").write("\n".join(output))
+    print(cudak_total(target, end) - cudak_total(target, start - 1))
+    print(cudak_smallest(target, start, end))

@@ -19,7 +19,7 @@
 - [x] Dead Fraction
 
 ## Exercise 4
-- [ ] Cudak
+- [x] Cudak
 - [x] The Uxuhul Voting System
 - [ ] Whac-a-Mole
 - [ ] Funny Games
