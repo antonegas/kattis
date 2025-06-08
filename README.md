@@ -21,7 +21,7 @@
 ## Exercise 4
 - [x] Cudak
 - [x] The Uxuhul Voting System
-- [ ] Whac-a-Mole
+- [x] Whac-a-Mole
 - [ ] Funny Games
 
 ## Exercise 5
