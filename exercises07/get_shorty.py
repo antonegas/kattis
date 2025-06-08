@@ -16,7 +16,7 @@ out:
 
 """
 
-from heapq import heappush, heappop
+from heapq import heappop, heappush
 
 def get_shorty(adjacent: list[list[tuple[int, float]]], source: int, target: int) -> float:
     previous = [-1] * len(adjacent)
