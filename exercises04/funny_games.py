@@ -16,29 +16,53 @@ Mikael
 
 """
 
-def min_max(x: float, factor_weapons: list[float], depth: int, memo: dict[float, int]) -> int:
-    if x in memo:
-        return memo[x]
-    
-    if x <= 1:
-        return depth % 2
-    
-    best = -1
+from heapq import heappop, heappush
 
-    for factor_weapon in factor_weapons:
-        winner = min_max(x * factor_weapon, factor_weapons, depth + 1, memo)
-        if best < 0 or winner == depth % 2:
-            best = winner
+def funny_games(size: float, weapons: list[float]) -> bool:
+    if min(weapons) * size <= 1:
+        return True
 
-    memo[x] = best
+    weapons.sort()
+    queue = []
+    wins = [[1.0, 1 / min(weapons)]]
 
-    return best
+    while wins[-1][1] <= size:
+        if len(queue) == 0:
+            for weapon in weapons:
+                heappush(queue, (wins[-1][1] / weapon, wins[-1][1] / weapons[-1] / weapon))
+
+        first, second = heappop(queue)
+
+        if first <= wins[-1][1]:
+            wins[-1][1] = max(wins[-1][1], second)
+            continue
+
+        for weapon in weapons:
+            heappush(queue, (wins[-1][1] / weapon, min(first, wins[-1][1] / weapons[-1]) / weapon))
+
+        if queue[0][0] < first:
+            heappush(queue, (first, second))
+            first, second = heappop(queue)
+        elif queue[0][0] == first and queue[0][1] < second:
+            heappush(queue, (first, second))
+            first, second = heappop(queue)
+            
+        wins.append([first, second])
+
+    for first, second in wins:
+        if first < size and size <= second:
+            return True
+
+    return False
 
 if __name__ == "__main__":
-    output = list()
-    data = open(0, "r").read()
-    
-    for x, _, *factor_weapons in [map(float, x.split(" ")) for x in data.split("\n")[1:-1]]:
-        print(["Mikael", "Nils"][min_max(x, factor_weapons, 0, dict())])
+    for _ in range(int(input())):
+        size, _, *weapons = map(float, input().split(" "))
+        
+        winning = funny_games(size, weapons)
 
-    open(1, "w").write("\n".join(output))
+        if winning:
+            print("Nils")
+        else:
+            print("Mikael")
+

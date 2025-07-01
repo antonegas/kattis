@@ -22,7 +22,7 @@
 - [x] Cudak
 - [x] The Uxuhul Voting System
 - [x] Whac-a-Mole
-- [ ] Funny Games
+- [x] Funny Games
 
 ## Exercise 5
 - [x] Getting Gold
