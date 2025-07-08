@@ -144,7 +144,7 @@
 - [x] Subway
 - [x] Landline Telephone Network
 - [ ] Antenna Placement
-- [ ] Watersheds
+- [x] Watersheds
 - [x] Arbitrage?
 
 ## Session 3:
