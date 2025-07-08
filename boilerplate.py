@@ -1,6 +1,6 @@
 """
 author: Anton Nilsson
-testcase XXX:
+testcase 1:
 in:
 XXX
 out:
@@ -28,10 +28,4 @@ def algorithm():
     pass
 
 if __name__ == "__main__":
-    output = list()
-    lines = open(0, "r").read().splitlines()
-
-    index = 0
-
-
-    open(1, "w").write("\n".join(output))
+    pass
