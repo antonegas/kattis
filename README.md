@@ -62,7 +62,7 @@
 
 ## Exercise 11
 - [x] Yet Satisfiability Again!
-- [ ] Gokigen Naname
+- [x] Gokigen Naname
 - [ ] Square Fields (Hard)
 - [ ] Maximum Loot
 
