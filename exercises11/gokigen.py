@@ -130,13 +130,12 @@ def test_slash(x: int, y: int, size: int, intersections: list[list[int]], parent
         if dfs(x + 1, y, size, intersections, parent_copy, rank_copy, solution):
             return True
         
-        solution[y][x] = "x"
+        solution[y][x] = ""
         
         intersections[y1][x1] += 1
         intersections[y2][x2] += 1
 
     return False
-    
 
 def test_backslash(x: int, y: int, size: int, intersections: list[list[int]], parent: list[int], rank: list[int], solution: list[list[str]]) -> bool:
     top_left = (x, y)
@@ -162,7 +161,7 @@ def test_backslash(x: int, y: int, size: int, intersections: list[list[int]], pa
         if dfs(x + 1, y, size, intersections, parent_copy, rank_copy, solution):
             return True
         
-        solution[y][x] = "y"
+        solution[y][x] = ""
 
         intersections[y1][x1] += 1
         intersections[y2][x2] += 1
