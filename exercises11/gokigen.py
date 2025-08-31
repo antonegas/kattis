@@ -114,7 +114,7 @@ def test_slash(x: int, y: int, size: int, intersections: list[list[int]], parent
     bottom_left_index = get_intersection_index(*bottom_left, size)
 
     parent_copy = parent[:]
-    rank_copy = parent[:]
+    rank_copy = rank[:]
 
     if not disjoint_set_same(top_right_index, bottom_left_index, parent):
         disjoint_set_union(top_right_index, bottom_left_index, parent_copy, rank_copy)
