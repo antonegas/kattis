@@ -162,3 +162,6 @@
 - [x] Class Picture 
 - [ ] Robert Hood 
 - [x] Trojke 
+
+## Extras:
+- [ ] Trie
